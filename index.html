@@ -1171,6 +1171,30 @@ section {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ============ "As of" date ============ */
+.as-of-date {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+.as-of-date--center {
+  text-align: center;
+  margin-top: 2.5rem;
+  border-top: none;
+  padding-top: 0;
+}
+.as-of-date span[data-today] {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
 </style>
 </head>
 <body>
@@ -1243,6 +1267,7 @@ section {
           <div class="feature-stat-label">Active Mandates</div>
         </div>
       </div>
+      <div class="as-of-date">As of <span data-today></span></div>
     </div>
   </div>
 </section>
@@ -1425,6 +1450,7 @@ section {
         <div class="deal-stat-label">Geographies</div>
       </div>
     </div>
+    <div class="as-of-date as-of-date--center reveal">As of <span data-today></span></div>
 
     <table class="deals-table reveal">
       <thead>
@@ -1811,6 +1837,19 @@ navMobile.querySelectorAll('a').forEach(link => {
   });
 });
 
+// ====== "As of" date — populate today's date everywhere [data-today] appears ======
+(function () {
+  const today = new Date();
+  const formatted = today.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  document.querySelectorAll('[data-today]').forEach(el => {
+    el.textContent = formatted;
+  });
+})();
+
 // ====== Scroll reveal ======
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1837,42 +1876,4 @@ document.getElementById('calendlyLink').addEventListener('click', (e) => {
   document.getElementById('calendlyModal').classList.add('active');
 });
 function closeModal(id) {
-  document.getElementById(id).classList.remove('active');
-}
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', (e) => {
-    if (e.target === m) m.classList.remove('active');
-  });
-});
-
-// ====== Inquiry form: opens email client with prefilled body ======
-function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = new FormData(form);
-
-  const subject = `[VSv Inquiry] ${data.get('type') || 'General'} — ${data.get('company') || data.get('name')}`;
-  const body =
-`Hello Varun,
-
-I'd like to submit a confidential inquiry through the VSv website.
-
-Name: ${data.get('name')}
-Email: ${data.get('email')}
-Company: ${data.get('company') || '—'}
-Inquiry Type: ${data.get('type')}
-
-Context:
-${data.get('message') || '—'}
-
-—
-Sent via vsventures.org`;
-
-  window.location.href = `mailto:varun@vsventures.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  document.getElementById('successModal').classList.add('active');
-  form.reset();
-}
-</script>
-
-</body>
-</html>
+  document.getElementById(id).classList
