@@ -1196,6 +1196,9 @@ section {
   letter-spacing: 0.04em;
 }
 </style>
+<!-- Calendly assets for popup widget -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -1803,16 +1806,7 @@ section {
   </div>
 </footer>
 
-<!-- ============ MODAL: Calendly placeholder ============ -->
-<div class="modal-overlay" id="calendlyModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('calendlyModal')">×</button>
-    <div class="modal-icon">→</div>
-    <h3>Schedule a Call</h3>
-    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Replace this with your Calendly embed code once your link is ready. For now, please email us at <a href="mailto:varun@vsventures.org" style="color: var(--gold);">varun@vsventures.org</a> to set up a call.</p>
-    <a href="mailto:varun@vsventures.org" class="btn-primary" style="display: inline-block;">Email Us Instead →</a>
-  </div>
-</div>
+<!-- (Calendly popup is now handled inline via Calendly.initPopupWidget — no placeholder modal needed) -->
 
 <!-- ============ MODAL: Form Success ============ -->
 <div class="modal-overlay" id="successModal">
@@ -1872,10 +1866,16 @@ window.addEventListener('load', () => {
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
 });
 
-// ====== Calendly modal ======
+// ====== Calendly popup widget ======
+const CALENDLY_URL = 'https://calendly.com/varun-vsventures/30min';
 document.getElementById('calendlyLink').addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('calendlyModal').classList.add('active');
+  if (window.Calendly && typeof Calendly.initPopupWidget === 'function') {
+    Calendly.initPopupWidget({ url: CALENDLY_URL });
+  } else {
+    // Fallback if Calendly script hasn't loaded — open in new tab
+    window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer');
+  }
 });
 function closeModal(id) {
   document.getElementById(id).classList.remove('active');
