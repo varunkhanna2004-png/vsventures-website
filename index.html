@@ -310,6 +310,102 @@ section {
   color: var(--text-muted);
 }
 
+/* ====== Live Pipeline dashboard (hero-feature variant) ====== */
+.pipeline-headline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.pipeline-stat {
+  display: block;
+  position: relative;
+  padding: 1.25rem 1.25rem 1.25rem 0;
+  border-right: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.pipeline-stat:last-child { border-right: none; padding-left: 1.25rem; }
+.pipeline-stat:hover { background: rgba(212, 165, 116, 0.04); }
+.pipeline-stat:hover .pipeline-stat-arrow { transform: translateX(4px); color: var(--gold-bright); }
+.pipeline-stat-num {
+  font-family: var(--display);
+  font-size: 2.5rem;
+  color: var(--gold);
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.pipeline-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.pipeline-stat-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--display);
+  font-style: italic;
+}
+.pipeline-stat-arrow {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1rem;
+  color: var(--gold-deep);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.pipeline-stat:last-child .pipeline-stat-arrow { right: 0.5rem; }
+.pipeline-rows {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pipeline-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.pipeline-row:hover {
+  border-color: var(--border-strong);
+  background: rgba(212, 165, 116, 0.04);
+}
+.pipeline-row:hover .pipeline-row-arrow { transform: translateX(4px); color: var(--gold-bright); }
+.pipeline-row-side {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.pipeline-row-detail {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-family: var(--body);
+}
+.pipeline-row-detail strong { color: var(--text); font-weight: 500; }
+.pipeline-row-arrow {
+  font-size: 1rem;
+  color: var(--gold-deep);
+  transition: all 0.3s ease;
+}
+
 /* Marquee strip */
 .marquee {
   border-top: 1px solid var(--border);
@@ -1316,6 +1412,14 @@ section {
   .footer-bottom { flex-direction: column; gap: 1rem; }
   .hero-feature { padding: 2rem 1.5rem; }
   .feature-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .pipeline-headline { grid-template-columns: 1fr; }
+  .pipeline-stat { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem; }
+  .pipeline-stat:last-child { padding-left: 0; border-bottom: none; }
+  .pipeline-stat-num { font-size: 2rem; }
+  .pipeline-row { grid-template-columns: 1fr auto; }
+  .pipeline-row-side { grid-row: 1; }
+  .pipeline-row-detail { grid-column: 1 / -1; grid-row: 2; font-size: 0.8rem; }
+  .pipeline-row-arrow { grid-row: 1; }
 }
 
 /* Scroll animations */
@@ -1409,27 +1513,38 @@ section {
       </div>
     </div>
     <div class="hero-feature reveal visible">
-      <div class="feature-tag">◆ Selected Engagement</div>
-      <div class="feature-title">Global CX provider exploring partnership with India-based RCM company</div>
-      <div class="feature-stats">
-        <div>
-          <div class="feature-stat-num">USD 32M</div>
-          <div class="feature-stat-label">Revenue Scale</div>
-        </div>
-        <div>
-          <div class="feature-stat-num">In DD</div>
-          <div class="feature-stat-label">Status</div>
-        </div>
-        <div>
-          <div class="feature-stat-num">2</div>
-          <div class="feature-stat-label">Closed Deals</div>
-        </div>
-        <div>
-          <div class="feature-stat-num">4</div>
-          <div class="feature-stat-label">Active Mandates</div>
-        </div>
+      <div class="feature-tag">◆ Live Pipeline</div>
+      <div class="feature-title">Active deal flow <em>at a glance.</em></div>
+
+      <div class="pipeline-headline">
+        <a class="pipeline-stat" href="#mandates">
+          <div class="pipeline-stat-num">13</div>
+          <div class="pipeline-stat-label">Active Mandates</div>
+          <div class="pipeline-stat-sub">8 sell-side · 5 buy-side</div>
+          <span class="pipeline-stat-arrow">→</span>
+        </a>
+        <a class="pipeline-stat" href="#deals">
+          <div class="pipeline-stat-num">2</div>
+          <div class="pipeline-stat-label">Closed Deals</div>
+          <div class="pipeline-stat-sub">$9M+ aggregate value</div>
+          <span class="pipeline-stat-arrow">→</span>
+        </a>
       </div>
-      <div class="as-of-date">As of <span data-today></span></div>
+
+      <div class="pipeline-rows">
+        <a class="pipeline-row" href="#mandates" data-mandate-tab="sell">
+          <span class="pipeline-row-side">◆ Sell-Side</span>
+          <span class="pipeline-row-detail"><strong>8 mandates</strong> · ~$345M aggregate revenue</span>
+          <span class="pipeline-row-arrow">→</span>
+        </a>
+        <a class="pipeline-row" href="#mandates" data-mandate-tab="buy">
+          <span class="pipeline-row-side">◆ Buy-Side</span>
+          <span class="pipeline-row-detail"><strong>5 mandates</strong> · $110–490M deal envelope</span>
+          <span class="pipeline-row-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="as-of-date">As of <span data-today></span> &middot; <span style="font-style: normal; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">strictly confidential</span></div>
     </div>
   </div>
 </section>
@@ -2205,6 +2320,20 @@ window.addEventListener('load', () => {
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
 });
 
+
+
+// ====== Live Pipeline: click a pipeline-row to switch mandates tab + scroll ======
+document.querySelectorAll('.pipeline-row').forEach(row => {
+  row.addEventListener('click', (e) => {
+    const tabName = row.dataset.mandateTab;
+    if (!tabName) return;
+    // Let the default href="#mandates" handle the scroll. Then switch tab after a brief delay.
+    setTimeout(() => {
+      const targetTab = document.querySelector(`.mandates-tab[data-tab="${tabName}"]`);
+      if (targetTab) targetTab.click();
+    }, 400);
+  });
+});
 
 // ====== Active Mandates: tabs + per-row CTA ======
 document.querySelectorAll('.mandates-tab').forEach(tab => {
