@@ -557,6 +557,163 @@ section {
 }
 .partner-cta:hover { color: var(--gold-bright); }
 
+
+/* ============ ACTIVE MANDATES ============ */
+.mandates-section { background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.mandates-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.mandates-tab {
+  padding: 1rem 2rem;
+  font-family: var(--body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.mandates-tab:hover { color: var(--text); }
+.mandates-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.mandates-tab .tab-count {
+  font-family: var(--display);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  font-style: italic;
+  color: var(--gold);
+  text-transform: none;
+}
+.mandates-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.mandate-stat-num {
+  font-family: var(--display);
+  font-size: 2.25rem;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.mandate-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+.mandates-pane { display: none; }
+.mandates-pane.active { display: block; }
+.mandates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+.mandates-table thead th {
+  font-family: var(--body);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-strong);
+  font-weight: 400;
+}
+.mandates-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+.mandates-table tbody tr:hover { background: rgba(212, 165, 116, 0.04); }
+.mandates-table tbody td {
+  padding: 1.5rem 1.25rem;
+  vertical-align: top;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.mandate-codename {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.mandate-codename .new-badge {
+  display: inline-block;
+  font-family: var(--body);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  background: var(--gold);
+  color: var(--bg);
+  padding: 0.15rem 0.5rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  font-weight: 500;
+  font-style: normal;
+}
+.mandate-meta { color: var(--text-muted); font-size: 0.78rem; line-height: 1.5; }
+.mandate-band {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  color: var(--text);
+  font-weight: 400;
+}
+.mandate-band-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-top: 0.2rem;
+}
+.mandate-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  border: 1px solid var(--border-strong);
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  background: none;
+  font-family: var(--body);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.mandate-cta:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.mandates-disclaimer {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+@media (max-width: 768px) {
+  .mandates-stats { grid-template-columns: 1fr; }
+  .mandates-table thead { display: none; }
+  .mandates-table tbody td { display: block; padding: 0.5rem 0; border: none; }
+  .mandates-table tbody tr { display: block; padding: 1.5rem 0; }
+  .mandate-cta { margin-top: 1rem; width: 100%; justify-content: center; }
+}
+
 /* ============ Section: Track Record / Deals ============ */
 .deals-stats {
   display: grid;
@@ -1214,6 +1371,7 @@ section {
       <li><a href="#services">Services</a></li>
       <li><a href="#deals">Track Record</a></li>
       <li><a href="#process">Process</a></li>
+      <li><a href="#mandates">Mandates</a></li>
       <li><a href="#leadership">Leadership</a></li>
       <li><a href="#contact" class="nav-cta">Talk to Us</a></li>
     </ul>
@@ -1226,6 +1384,7 @@ section {
     <a href="#services">Services</a>
     <a href="#deals">Track Record</a>
     <a href="#process">Process</a>
+    <a href="#mandates">Mandates</a>
     <a href="#leadership">Leadership</a>
     <a href="#contact">Talk to Us</a>
   </div>
@@ -1557,6 +1716,186 @@ section {
   </div>
 </section>
 
+
+<!-- ============ ACTIVE MANDATES ============ -->
+<section id="mandates" class="mandates-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Active Mandates</span>
+        <h2>Live deal flow, <em>under NDA.</em></h2>
+      </div>
+      <p class="section-lead">
+        Confidential teasers from our active sell-side and buy-side mandates. Codenames are used throughout. Full briefing memos with named entities, financials, and management contact are released only against a signed NDA — request a brief on any opportunity below.
+      </p>
+    </div>
+
+    <div class="mandates-tabs reveal" role="tablist">
+      <button class="mandates-tab active" role="tab" data-tab="sell">Sell-Side <span class="tab-count">8 active</span></button>
+      <button class="mandates-tab" role="tab" data-tab="buy">Buyer Mandates <span class="tab-count">5 active</span></button>
+    </div>
+
+    <!-- ===== SELL-SIDE PANE ===== -->
+    <div class="mandates-pane active" id="pane-sell">
+      <div class="mandates-stats reveal">
+        <div>
+          <div class="mandate-stat-num">8</div>
+          <div class="mandate-stat-label">Sell-side opportunities</div>
+        </div>
+        <div>
+          <div class="mandate-stat-num">~$345M</div>
+          <div class="mandate-stat-label">Aggregate revenue</div>
+        </div>
+        <div>
+          <div class="mandate-stat-num">~32,600</div>
+          <div class="mandate-stat-label">Aggregate FTE</div>
+        </div>
+      </div>
+
+      <table class="mandates-table reveal">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Codename</th>
+            <th style="width: 26%;">Sector / Focus</th>
+            <th style="width: 22%;">Geography</th>
+            <th style="width: 18%;">Scale</th>
+            <th style="width: 16%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mandate-codename">Demeter</div></td>
+            <td>Multilingual CX &amp; Operations Support<div class="mandate-meta">Voice + digital, B2B sales, trust &amp; safety</div></td>
+            <td>Americas (US + LATAM)<div class="mandate-meta">Onshore + nearshore</div></td>
+            <td><div class="mandate-band">$50–100M</div><div class="mandate-band-sub">Single-digit EBITDA margin</div></td>
+            <td><button class="mandate-cta" data-codename="Demeter" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Apollo</div></td>
+            <td>AI-augmented Digital CX<div class="mandate-meta">Hybrid human + AI; modular automation</div></td>
+            <td>EMEA + global<div class="mandate-meta">35+ languages</div></td>
+            <td><div class="mandate-band">$10–25M</div><div class="mandate-band-sub">~20% EBITDA margin</div></td>
+            <td><button class="mandate-cta" data-codename="Apollo" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Zeus</div></td>
+            <td>Telecom-led BPO transitioning to global mix<div class="mandate-meta">Domestic + offshore + fintech ME</div></td>
+            <td>Africa + India + MENA<div class="mandate-meta">Multi-country</div></td>
+            <td><div class="mandate-band">$100M+</div><div class="mandate-band-sub">~10% EBITDA margin</div></td>
+            <td><button class="mandate-cta" data-codename="Zeus" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Hermes</div></td>
+            <td>CX + FinOps + RevOps<div class="mandate-meta">Right-shoring delivery model</div></td>
+            <td>North America + Asia<div class="mandate-meta">5 hubs across NA/APAC</div></td>
+            <td><div class="mandate-band">$25–50M</div><div class="mandate-band-sub">Mid-teens EBITDA margin</div></td>
+            <td><button class="mandate-cta" data-codename="Hermes" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Poseidon</div></td>
+            <td>Offshore talent &amp; staff augmentation<div class="mandate-meta">IT, finance, creative, healthcare</div></td>
+            <td>Multi-country offshore<div class="mandate-meta">PH/IN/CO/AR/MY/VN</div></td>
+            <td><div class="mandate-band">$25–50M</div><div class="mandate-band-sub">~20% EBITDA margin</div></td>
+            <td><button class="mandate-cta" data-codename="Poseidon" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Ares</div></td>
+            <td>Omnichannel CX &amp; back office<div class="mandate-meta">19+ years; 150+ active clients</div></td>
+            <td>Philippines<div class="mandate-meta">Mindanao multi-site</div></td>
+            <td><div class="mandate-band">$50–75M</div><div class="mandate-band-sub">~20% EBITDA margin</div></td>
+            <td><button class="mandate-cta" data-codename="Ares" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Artemis</div></td>
+            <td>Healthcare RCM / Risk Adjustment<div class="mandate-meta">HCC coding; HEDIS/Stars; AI-enabled</div></td>
+            <td>USA + India<div class="mandate-meta">Multi-site delivery</div></td>
+            <td><div class="mandate-band">$5–10M</div><div class="mandate-band-sub">Investment phase; 20%+ target</div></td>
+            <td><button class="mandate-cta" data-codename="Artemis" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Aurora<span class="new-badge">NEW</span></div></td>
+            <td>Sales + CX + Back Office + FinOps<div class="mandate-meta">Tier-1 telecom partner; 16 marquee clients</div></td>
+            <td>India (Delhi NCR)<div class="mandate-meta">Noida flagship + Gurugram</div></td>
+            <td><div class="mandate-band">$5–10M</div><div class="mandate-band-sub">FY27F: $11M, ~11% EBITDA</div></td>
+            <td><button class="mandate-cta" data-codename="Aurora" data-side="sell">Request Brief →</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== BUY-SIDE PANE ===== -->
+    <div class="mandates-pane" id="pane-buy">
+      <div class="mandates-stats reveal">
+        <div>
+          <div class="mandate-stat-num">5</div>
+          <div class="mandate-stat-label">Active buyer mandates</div>
+        </div>
+        <div>
+          <div class="mandate-stat-num">$110–490M</div>
+          <div class="mandate-stat-label">Combined deal envelope</div>
+        </div>
+        <div>
+          <div class="mandate-stat-num">Listed + PE + VC</div>
+          <div class="mandate-stat-label">Buyer profiles</div>
+        </div>
+      </div>
+
+      <table class="mandates-table reveal">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Codename</th>
+            <th style="width: 26%;">Buyer Profile</th>
+            <th style="width: 22%;">Sector Focus</th>
+            <th style="width: 18%;">Target Size</th>
+            <th style="width: 16%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mandate-codename">Orion</div></td>
+            <td>Nasdaq-listed global BPO<div class="mandate-meta">~$600M LTM revenue</div></td>
+            <td>Healthcare RCM<div class="mandate-meta">India delivery required</div></td>
+            <td><div class="mandate-band">$15–50M</div><div class="mandate-band-sub">Tuck-in scale</div></td>
+            <td><button class="mandate-cta" data-codename="Orion" data-side="buy">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Lyra</div></td>
+            <td>BSE-listed Indian BPM/IT services<div class="mandate-meta">~$225M revenue; 50-yr legacy</div></td>
+            <td>General BPO / BPM<div class="mandate-meta">F&amp;A, CX, demand-gen</div></td>
+            <td><div class="mandate-band">$20–40M</div><div class="mandate-band-sub">U.S. client book required</div></td>
+            <td><button class="mandate-cta" data-codename="Lyra" data-side="buy">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Pegasus</div></td>
+            <td>VC-backed AI-native CX platform<div class="mandate-meta">~$100M+ ARR; $500M valuation</div></td>
+            <td>Pure CX (omnichannel)<div class="mandate-meta">Tech / e-commerce bias</div></td>
+            <td><div class="mandate-band">$25–150M</div><div class="mandate-band-sub">Global geography</div></td>
+            <td><button class="mandate-cta" data-codename="Pegasus" data-side="buy">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Cygnus</div></td>
+            <td>Philippines BPO operator<div class="mandate-meta">Founder-led; Mindanao footprint</div></td>
+            <td>General BPO (tuck-in)<div class="mandate-meta">Voice + non-voice</div></td>
+            <td><div class="mandate-band">$1–2M</div><div class="mandate-band-sub">Luzon mandatory</div></td>
+            <td><button class="mandate-cta" data-codename="Cygnus" data-side="buy">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Andromeda</div></td>
+            <td>PE-backed global CX leader<div class="mandate-meta">~$1B+ revenue; ~28K FTE</div></td>
+            <td>Healthcare / Insurance<div class="mandate-meta">Payer, provider, PBM, life &amp; annuities</div></td>
+            <td><div class="mandate-band">$50–250M</div><div class="mandate-band-sub">Global geography</div></td>
+            <td><button class="mandate-cta" data-codename="Andromeda" data-side="buy">Request Brief →</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mandates-disclaimer reveal">
+      Strictly confidential. Codenames and ranges only — full deal details, named entities, and management access disclosed under NDA. As of <span data-today></span>.
+    </p>
+  </div>
+</section>
+
 <!-- ============ LEADERSHIP ============ -->
 <section id="leadership">
   <div class="container">
@@ -1864,6 +2203,39 @@ setTimeout(() => {
 // Belt-and-braces: also force-reveal everything once the whole page is fully loaded
 window.addEventListener('load', () => {
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+});
+
+
+// ====== Active Mandates: tabs + per-row CTA ======
+document.querySelectorAll('.mandates-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.mandates-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.mandates-pane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('pane-' + target).classList.add('active');
+  });
+});
+document.querySelectorAll('.mandate-cta').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const codename = btn.dataset.codename;
+    const side = btn.dataset.side;
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      const form = document.getElementById('inquiryForm');
+      if (!form) return;
+      const typeSelect = form.querySelector('select[name="type"]');
+      const messageArea = form.querySelector('textarea[name="message"]');
+      if (typeSelect) {
+        typeSelect.value = side === 'sell' ? 'buy-side' : 'sell-side';
+      }
+      if (messageArea) {
+        messageArea.value = `I would like a confidential briefing on the "${codename}" mandate.`;
+        messageArea.focus();
+      }
+    }, 700);
+  });
 });
 
 // ====== Calendly popup widget ======
