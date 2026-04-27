@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSv Inc. — Boutique M&A Advisory | Velocity & Synergy Ventures</title>
+<meta name="description" content="VSv Inc. is a boutique, relationship-led M&A advisory firm supporting founders and strategic buyers in BPO, CX and tech-enabled services. Philippines-based, cross-border reach.">
+<meta name="keywords" content="M&A advisory, BPO M&A, CX M&A, sell-side advisory, buy-side advisory, Philippines M&A, outsourcing M&A, VSv Ventures, Velocity Synergy">
+<meta property="og:title" content="VSv Inc. — Boutique M&A Advisory">
+<meta property="og:description" content="Relationship-led M&A advisory for BPO / CX / Tech-enabled Services. We walk with you the last mile.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/jpeg" href="assets/vsv-logo.jpg">
+
+<!-- Fonts: Cormorant Garamond (display, refined) + Inter (body, neutral but utilitarian) replaced w/ Outfit for slight character -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================================
+   VSv INC. — Brand: Gold (#D4A574) on Near-black (#0A0A0A)
+   Aesthetic: Refined / luxury / editorial M&A
+   ================================================================ */
+:root {
+  --bg: #0A0A0A;
+  --bg-elevated: #111111;
+  --bg-card: #141414;
+  --gold: #D4A574;
+  --gold-bright: #E5BB87;
+  --gold-deep: #A87E4F;
+  --text: #F5F0E8;
+  --text-muted: #8A847A;
+  --border: rgba(212, 165, 116, 0.15);
+  --border-strong: rgba(212, 165, 116, 0.35);
+  --display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-weight: 300;
+  font-size: 16px;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ============ Typography ============ */
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.eyebrow {
+  font-family: var(--body);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.7rem;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+/* ============ Layout ============ */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+section {
+  padding: 7rem 0;
+  position: relative;
+}
+
+/* ============ Navigation ============ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 0;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.nav-logo img {
+  height: 42px;
+  width: 42px;
+  border-radius: 4px;
+}
+.nav-logo-text {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.nav-logo-text span { color: var(--gold); }
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  padding: 0.7rem 1.5rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 101;
+}
+.nav-toggle span {
+  width: 26px;
+  height: 1.5px;
+  background: var(--gold);
+  transition: all 0.3s ease;
+}
+.nav-mobile { display: none; }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  padding: 9rem 0 6rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(212, 165, 116, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(212, 165, 116, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 165, 116, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 165, 116, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-tagline {
+  font-size: clamp(2.5rem, 6vw, 5.2rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  font-family: var(--display);
+}
+.hero-tagline em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+.hero-cta-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-secondary {
+  padding: 1rem 2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--gold);
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(212, 165, 116, 0.2);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--gold);
+}
+.btn-secondary:hover {
+  background: rgba(212, 165, 116, 0.08);
+}
+.btn-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover .btn-arrow,
+.btn-secondary:hover .btn-arrow { transform: translateX(4px); }
+
+/* Hero visual — featured deal card */
+.hero-feature {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.06) 0%, rgba(20, 20, 20, 0.9) 100%);
+  border: 1px solid var(--border-strong);
+  padding: 2.5rem;
+  position: relative;
+}
+.hero-feature::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 30px; height: 30px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+}
+.hero-feature::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 30px; height: 30px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+.feature-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+.feature-title {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.feature-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.feature-stat-num {
+  font-family: var(--display);
+  font-size: 2rem;
+  color: var(--gold);
+  font-weight: 500;
+}
+.feature-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+/* Marquee strip */
+.marquee {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+  overflow: hidden;
+  padding: 1.5rem 0;
+}
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  animation: marquee 40s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.marquee-item::after {
+  content: '◆';
+  color: var(--gold);
+  font-size: 0.6rem;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============ Section: Who We Are ============ */
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  margin-bottom: 5rem;
+}
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+.section-header h2 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.section-lead {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.about-cell {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.about-cell:last-child { border-right: none; }
+.about-cell-num {
+  font-family: var(--display);
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.15em;
+}
+.about-cell-title {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.about-cell-body {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ============ Section: Services ============ */
+.services {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.service-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+}
+.service-card:hover::before {
+  transform: translateX(100%);
+}
+.service-icon {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+.service-icon svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.service-title {
+  font-family: var(--display);
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+.service-body {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.service-list {
+  list-style: none;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.service-list li {
+  font-size: 0.85rem;
+  color: var(--text);
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.service-list li::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ============ Strategic Delivery Partner block ============ */
+.partner-block {
+  margin-top: 2.5rem;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+  border: 1px solid var(--border-strong);
+  padding: 3rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.partner-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--gold), transparent);
+}
+.partner-left .eyebrow { margin-bottom: 1rem; }
+.partner-logo {
+  max-width: 180px;
+  max-height: 60px;
+  width: auto;
+  height: auto;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+.partner-name {
+  font-family: var(--display);
+  font-size: 2.25rem;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.partner-tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.partner-headline {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-style: italic;
+}
+.partner-body {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+.partner-services {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.partner-services li {
+  font-size: 0.75rem;
+  color: var(--gold);
+  border: 1px solid var(--border-strong);
+  padding: 0.4rem 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.partner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 0.25rem;
+}
+.partner-cta:hover { color: var(--gold-bright); }
+
+/* ============ Section: Track Record / Deals ============ */
+.deals-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 4rem 0;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+}
+.deal-stat {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.deal-stat:last-child { border-right: none; }
+.deal-stat-num {
+  font-family: var(--display);
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+.deal-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+.deals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.deals-table thead th {
+  text-align: left;
+  padding: 1.25rem 1.5rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-strong);
+}
+.deals-table tbody td {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.deals-table tbody tr {
+  transition: background 0.3s ease;
+}
+.deals-table tbody tr:hover { background: rgba(212, 165, 116, 0.03); }
+.status-pill {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  border-radius: 100px;
+}
+.status-pill.closed { color: var(--gold); border-color: var(--gold); }
+.status-pill.dd { color: #E5BB87; }
+.status-pill.discussion { color: var(--text-muted); }
+.deal-narrative {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+.deal-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.deal-scale {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+/* ============ Section: Process ============ */
+.process {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+}
+.process-flow {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  margin-top: 4rem;
+  position: relative;
+}
+.process-step {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.process-step:last-child { border-right: none; }
+.process-step:hover { background: rgba(212, 165, 116, 0.02); }
+.process-num {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.process-title {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+.process-duration {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.process-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.process-tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--gold);
+  text-align: center;
+  margin-top: 4rem;
+  letter-spacing: 0.02em;
+}
+
+/* ============ Section: Leadership ============ */
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+.leader-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 3rem;
+  position: relative;
+  transition: all 0.4s ease;
+}
+.leader-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+}
+.leader-header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.leader-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--bg);
+  font-weight: 600;
+  flex-shrink: 0;
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+}
+.leader-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.leader-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  padding: 0.35rem 0.75rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.leader-linkedin:hover {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
+.leader-linkedin svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+.leader-name {
+  font-family: var(--display);
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+.leader-role {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.leader-loc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.leader-bio {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.leader-section-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+.leader-list {
+  list-style: none;
+}
+.leader-list li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.leader-list li:last-child { border-bottom: none; }
+.leader-list-yr { color: var(--gold); font-size: 0.75rem; flex-shrink: 0; }
+
+/* ============ Section: Credentials ============ */
+.credentials {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.cred-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2rem;
+}
+.cred-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.cred-value {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+.cred-detail {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+/* ============ Section: Contact ============ */
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(212, 165, 116, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+}
+.contact-headline {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+  font-family: var(--display);
+}
+.contact-headline em {
+  font-style: italic;
+  color: var(--gold);
+}
+.contact-channels {
+  margin-top: 3rem;
+}
+.contact-channel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.contact-channel-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+.contact-channel-value {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  color: var(--gold);
+}
+.contact-channel-value:hover { color: var(--gold-bright); }
+
+/* Form */
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  padding: 2.5rem;
+  position: relative;
+}
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 30px; height: 30px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+}
+.form-card::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 30px; height: 30px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+.form-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.form-title {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+.form-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.form-row { margin-bottom: 1.25rem; }
+.form-row label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+.form-row input,
+.form-row select,
+.form-row textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  transition: border-color 0.3s ease;
+}
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-bottom-color: var(--gold);
+}
+.form-row textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.form-row select option { background: var(--bg-card); color: var(--text); }
+.form-disclaimer {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 1.5rem 0;
+  line-height: 1.6;
+  padding: 1rem;
+  background: rgba(212, 165, 116, 0.04);
+  border-left: 2px solid var(--gold);
+}
+.form-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gold);
+  color: var(--bg);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--gold);
+}
+.form-submit:hover {
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+}
+
+/* ============ Footer ============ */
+.footer {
+  background: #050505;
+  border-top: 1px solid var(--border);
+  padding: 5rem 0 2rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand img {
+  height: 56px;
+  width: 56px;
+  margin-bottom: 1.25rem;
+  border-radius: 4px;
+}
+.footer-tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.footer-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 320px;
+}
+.footer-col h4 {
+  font-family: var(--body);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.75rem; }
+.footer-col a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.footer-legal {
+  display: flex;
+  gap: 2rem;
+}
+
+/* ============ Modal ============ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  padding: 3rem;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.modal-close:hover { color: var(--gold); }
+.modal h3 {
+  font-family: var(--display);
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+.modal-icon {
+  width: 60px; height: 60px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: var(--gold);
+  font-size: 2rem;
+  font-family: var(--display);
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 1024px) {
+  .hero-inner,
+  .section-header,
+  .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .about-grid,
+  .deals-stats,
+  .cred-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-flow { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  section { padding: 5rem 0; }
+  .container { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+  .nav-mobile {
+    display: none;
+    position: fixed;
+    top: 73px; left: 0; right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .nav-mobile.active { display: flex; }
+  .nav-mobile a { font-size: 1rem; color: var(--text); }
+  .services-grid,
+  .leadership-grid,
+  .deals-stats,
+  .about-grid,
+  .process-flow,
+  .cred-grid { grid-template-columns: 1fr; }
+  .partner-block { grid-template-columns: 1fr; gap: 2rem; padding: 2.25rem 1.5rem; }
+  .partner-name { font-size: 1.85rem; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .deals-table thead { display: none; }
+  .deals-table tbody td { display: block; padding: 0.5rem 0; border: none; }
+  .deals-table tbody tr {
+    display: block;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .footer-bottom { flex-direction: column; gap: 1rem; }
+  .hero-feature { padding: 2rem 1.5rem; }
+  .feature-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+}
+
+/* Scroll animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/vsv-logo.jpg" alt="VSv Inc.">
+      <span class="nav-logo-text">VS<span>v</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#deals">Track Record</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#contact" class="nav-cta">Talk to Us</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#deals">Track Record</a>
+    <a href="#process">Process</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#contact">Talk to Us</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div class="reveal visible">
+      <span class="eyebrow">Boutique M&amp;A Advisory · Est. 2023</span>
+      <h1 class="hero-tagline">
+        We walk with you<br>
+        <em>the last mile.</em>
+      </h1>
+      <p class="hero-sub">
+        Relationship-led M&amp;A advisory for founders and strategic buyers in BPO, CX and tech-enabled services. Philippines-grounded, with cross-border buyer access across APAC, the US, UK, and India.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#contact" class="btn-primary">Start a Conversation <span class="btn-arrow">→</span></a>
+        <a href="#deals" class="btn-secondary">View Deal Activity <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+    <div class="hero-feature reveal visible">
+      <div class="feature-tag">◆ Selected Engagement</div>
+      <div class="feature-title">Global CX provider exploring partnership with India-based RCM company</div>
+      <div class="feature-stats">
+        <div>
+          <div class="feature-stat-num">USD 32M</div>
+          <div class="feature-stat-label">Revenue Scale</div>
+        </div>
+        <div>
+          <div class="feature-stat-num">In DD</div>
+          <div class="feature-stat-label">Status</div>
+        </div>
+        <div>
+          <div class="feature-stat-num">2</div>
+          <div class="feature-stat-label">Closed Deals</div>
+        </div>
+        <div>
+          <div class="feature-stat-num">4</div>
+          <div class="feature-stat-label">Active Mandates</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Sell-Side Advisory</span>
+    <span class="marquee-item">Buy-Side Origination</span>
+    <span class="marquee-item">Cross-Border Transactions</span>
+    <span class="marquee-item">Commercial Due Diligence</span>
+    <span class="marquee-item">Valuation Framing</span>
+    <span class="marquee-item">Deal Structuring</span>
+    <span class="marquee-item">Sell-Side Advisory</span>
+    <span class="marquee-item">Buy-Side Origination</span>
+    <span class="marquee-item">Cross-Border Transactions</span>
+    <span class="marquee-item">Commercial Due Diligence</span>
+    <span class="marquee-item">Valuation Framing</span>
+    <span class="marquee-item">Deal Structuring</span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Who We Are</span>
+        <h2>A boutique built on <em>operator instinct</em> and trusted access.</h2>
+      </div>
+      <p class="section-lead">
+        Founded in 2023, VSv Inc. (Velocity &amp; Synergy Ventures) is a relationship-led M&amp;A advisory firm serving founders and strategic buyers in the BPO and CX ecosystem. We don't run auctions. We run discreet, founder-first processes that protect the narrative, the timing, and the confidentiality at every stage — and we draw on two decades of inside-the-business operating experience to ground every conversation.
+      </p>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-cell">
+        <div class="about-cell-num">01 / FOCUS</div>
+        <h3 class="about-cell-title">Sector-led</h3>
+        <p class="about-cell-body">M&amp;A advisory, strategic partnerships, and capital introductions across BPO, CX and adjacent tech-enabled services.</p>
+      </div>
+      <div class="about-cell">
+        <div class="about-cell-num">02 / GEOGRAPHY</div>
+        <h3 class="about-cell-title">Cross-border</h3>
+        <p class="about-cell-body">Philippines-centric origination with strategic buyer access across APAC, North America, UK and India.</p>
+      </div>
+      <div class="about-cell">
+        <div class="about-cell-num">03 / ENGAGEMENTS</div>
+        <h3 class="about-cell-title">Full-cycle</h3>
+        <p class="about-cell-body">Sell-side, buy-side, diligence support, valuation framing, and management presentations.</p>
+      </div>
+      <div class="about-cell">
+        <div class="about-cell-num">04 / DISCRETION</div>
+        <h3 class="about-cell-title">Confidential</h3>
+        <p class="about-cell-body">Strict anonymized outreach. Staged disclosure controlled via NDA and full counterparty qualification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Our Services</span>
+        <h2>Precision execution. <em>Sector depth.</em></h2>
+      </div>
+      <p class="section-lead">
+        We support clients across the deal lifecycle — from initial positioning through closing — with the operator's lens that distinguishes useful advice from generic process management.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/><path d="M9 6v12M15 6v12"/></svg>
+        </div>
+        <h3 class="service-title">Sell-Side Advisory</h3>
+        <p class="service-body">Structured exit processes for founder-led BPO and tech-enabled services businesses. Confidential, controlled, and outcome-focused.</p>
+        <ul class="service-list">
+          <li>Positioning &amp; teaser / IM development</li>
+          <li>Buyer mapping &amp; targeted outreach</li>
+          <li>Process management &amp; bid management</li>
+          <li>Negotiation &amp; closing support</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+        </div>
+        <h3 class="service-title">Buy-Side Origination</h3>
+        <p class="service-body">Proprietary deal sourcing for strategic acquirers seeking scalable delivery platforms. Founder networks. Local market access.</p>
+        <ul class="service-list">
+          <li>Target screening &amp; thesis development</li>
+          <li>Proprietary outreach &amp; qualification</li>
+          <li>Founder relationship-building</li>
+          <li>Diligence coordination through close</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 18l6-6 4 4 8-8"/><path d="M14 8h7v7"/></svg>
+        </div>
+        <h3 class="service-title">Transaction Support</h3>
+        <p class="service-body">Operator-led commercial diligence and synergy work. We pressure-test the deal narrative against real BPO operating realities.</p>
+        <ul class="service-list">
+          <li>Commercial due diligence</li>
+          <li>Operating model &amp; delivery DD</li>
+          <li>Synergy sizing &amp; integration planning</li>
+          <li>Client concentration &amp; margin analysis</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M8 8h8v8H8z"/></svg>
+        </div>
+        <h3 class="service-title">Deal Mechanics &amp; Structuring</h3>
+        <p class="service-body">Practical structuring guidance grounded in what actually closes. Earn-outs, rollover equity, control vs. minority — calibrated to your goals.</p>
+        <ul class="service-list">
+          <li>Valuation framing &amp; negotiation prep</li>
+          <li>Earn-out &amp; rollover structuring</li>
+          <li>Minority vs. control trade-offs</li>
+          <li>LOI to definitive agreement support</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sister Company / Delivery Partner: CX Horizon -->
+    <div class="partner-block reveal">
+      <div class="partner-left">
+        <span class="eyebrow">Sister Company · BPO Delivery</span>
+        <img src="assets/cxhorizon-logo.png" alt="CX Horizon" class="partner-logo" onerror="this.style.display='none'">
+        <div class="partner-name">CX Horizon</div>
+        <div class="partner-tagline">Full-Service BPO · Philippines</div>
+      </div>
+      <div class="partner-right">
+        <p class="partner-headline">Lower cost. Faster ramp. Better outcomes.</p>
+        <p class="partner-body">
+          <strong>CX Horizon</strong> — our sister company — delivers full-service BPO from the Philippines for global SMEs and enterprise scale-ups. Customized workforce models. AI-augmented operations. Operator DNA built across two decades inside the world's largest CX platforms. Whether you need contact-center capacity, back-office continuity, technical support depth, or AI-leveraged efficiency, CX Horizon plugs in directly — and we manage the handoff.
+        </p>
+        <ul class="partner-services">
+          <li>Customer Experience</li>
+          <li>Back Office &amp; F&amp;A</li>
+          <li>Tech Support</li>
+          <li>AI-Enabled Ops</li>
+        </ul>
+        <a href="https://www.cxhorizon.com/" target="_blank" rel="noopener" class="partner-cta">Explore CX Horizon →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEALS / TRACK RECORD ============ -->
+<section id="deals">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Track Record</span>
+        <h2>Selected deal activity, <em>anonymized.</em></h2>
+      </div>
+      <p class="section-lead">
+        Representative engagements illustrating scope and scale. Values shown reflect enterprise value or deal size as shared by parties. Specific transaction details are available under NDA and subject to counterparty consent.
+      </p>
+    </div>
+
+    <div class="deals-stats reveal">
+      <div class="deal-stat">
+        <div class="deal-stat-num">2</div>
+        <div class="deal-stat-label">Closed Transactions</div>
+      </div>
+      <div class="deal-stat">
+        <div class="deal-stat-num">USD 9M+</div>
+        <div class="deal-stat-label">Closed Deal Value</div>
+      </div>
+      <div class="deal-stat">
+        <div class="deal-stat-num">4</div>
+        <div class="deal-stat-label">Active Mandates</div>
+      </div>
+      <div class="deal-stat">
+        <div class="deal-stat-num">5</div>
+        <div class="deal-stat-label">Geographies</div>
+      </div>
+    </div>
+
+    <table class="deals-table reveal">
+      <thead>
+        <tr>
+          <th style="width: 14%;">Status</th>
+          <th style="width: 56%;">Transaction</th>
+          <th style="width: 30%;">Scale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="status-pill closed">● Closed</span></td>
+          <td>
+            <div class="deal-narrative">Strategic CX/BPO platform acquired a Philippines-based BPO delivery business</div>
+            <div class="deal-meta">Sell-side advisory · Cross-border</div>
+          </td>
+          <td><div class="deal-scale">USD 3.2M</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill closed">● Closed</span></td>
+          <td>
+            <div class="deal-narrative">Regional outsourcing group acquired an APAC services provider</div>
+            <div class="deal-meta">Sell-side advisory · APAC</div>
+          </td>
+          <td><div class="deal-scale">AUD 5.8M</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill dd">◐ In DD</span></td>
+          <td>
+            <div class="deal-narrative">AI-native CX platform conducting diligence on a BPO target</div>
+            <div class="deal-meta">Buy-side advisory · Tech-enabled services</div>
+          </td>
+          <td><div class="deal-scale">USD 32M revenue</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill discussion">○ In Discussion</span></td>
+          <td>
+            <div class="deal-narrative">Global CX provider exploring acquisition / partnership with an India-based RCM company</div>
+            <div class="deal-meta">Buy-side advisory · Healthcare RCM</div>
+          </td>
+          <td><div class="deal-scale">Confidential</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process" class="process">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">How We Engage</span>
+        <h2>A structured roadmap, <em>discreet at every stage.</em></h2>
+      </div>
+      <p class="section-lead">
+        From first conversation to post-close transition, we run a deliberately staged process that protects the narrative and keeps momentum without sacrificing control. Typical timelines are indicative — every mandate is calibrated to the founder's goals.
+      </p>
+    </div>
+
+    <div class="process-flow reveal">
+      <div class="process-step">
+        <div class="process-num">/ 01</div>
+        <h3 class="process-title">Discovery</h3>
+        <div class="process-duration">~ 4 Weeks</div>
+        <p class="process-body">Diagnostic conversations, opportunity framing, and confidential profile building.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">/ 02</div>
+        <h3 class="process-title">Detailing</h3>
+        <div class="process-duration">~ 2 Weeks</div>
+        <p class="process-body">Teaser, IM, financial pack, and buyer mapping with anonymized positioning.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">/ 03</div>
+        <h3 class="process-title">Introduce</h3>
+        <div class="process-duration">~ 1 Week</div>
+        <p class="process-body">NDA-gated outreach to qualified counterparties through trusted-network channels.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">/ 04</div>
+        <h3 class="process-title">Due Diligence</h3>
+        <div class="process-duration">~ 8 Weeks</div>
+        <p class="process-body">Commercial, operational and financial DD coordinated alongside management meetings.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">/ 05</div>
+        <h3 class="process-title">Handover</h3>
+        <div class="process-duration">~ 1 Week</div>
+        <p class="process-body">LOI through definitive documents, with negotiation support to closing.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">/ 06</div>
+        <h3 class="process-title">Transition</h3>
+        <div class="process-duration">~ 26 Weeks</div>
+        <p class="process-body">Post-close consulting and integration support for as long as our services remain valuable.</p>
+      </div>
+    </div>
+
+    <p class="process-tagline">"We walk the last mile with you — and as long as you deem our services valuable."</p>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP ============ -->
+<section id="leadership">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Leadership</span>
+        <h2>Two operators. <em>Decades inside the business.</em></h2>
+      </div>
+      <p class="section-lead">
+        VSv Inc. is led by two senior BPO operators with combined 40+ years inside the world's largest CX and shared services platforms. We've built workforces, turned around P&amp;Ls, and sold delivery capacity to global enterprise — which informs every conversation we have on the buy or sell side.
+      </p>
+    </div>
+
+    <div class="leadership-grid">
+      <!-- Varun -->
+      <div class="leader-card reveal">
+        <div class="leader-header">
+          <div class="leader-avatar">
+            <img src="assets/Varun.jpg" alt="Varun Khanna" onerror="this.parentElement.innerHTML='VK';">
+          </div>
+          <div>
+            <h3 class="leader-name">Varun Khanna</h3>
+            <div class="leader-role">Co-Founder &amp; CEO</div>
+            <div class="leader-loc">Metro Manila, Philippines</div>
+            <a href="https://www.linkedin.com/in/onlyvk/" target="_blank" rel="noopener" class="leader-linkedin">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        <p class="leader-bio">
+          24+ years scaling BPO and CX platforms — $70M P&amp;L managed, 10,500+ FTEs built, $13M+ in savings delivered. Operator-builder-dealmaker with executive relationships across founders, strategic buyers, and senior operators in APAC and beyond.
+        </p>
+        <div class="leader-section-title">Career Track</div>
+        <ul class="leader-list">
+          <li><span>Co-Founder &amp; CEO, VSv Inc. + CX Horizon</span><span class="leader-list-yr">2023 — Present</span></li>
+          <li><span>Senior Director &amp; Country Head WFM, Concentrix Philippines</span><span class="leader-list-yr">2024 — 2025</span></li>
+          <li><span>VP, BizDev &amp; RevOps, Ubiquity Philippines</span><span class="leader-list-yr">2020 — 2023</span></li>
+          <li><span>VP WFM, Accenture Philippines</span><span class="leader-list-yr">2015 — 2020</span></li>
+          <li><span>Global Shared Services Lead, QBE Philippines</span><span class="leader-list-yr">2014 — 2015</span></li>
+          <li><span>Country Head WFM, Cognizant Philippines</span><span class="leader-list-yr">2012 — 2014</span></li>
+          <li><span>Head of WFM, IBM India / Philippines</span><span class="leader-list-yr">2001 — 2012</span></li>
+        </ul>
+        <div class="leader-section-title">Credentials</div>
+        <ul class="leader-list">
+          <li>MBA, Finance &amp; Entrepreneurship — Northeastern University</li>
+          <li>Lean Six Sigma Green Belt — IBM</li>
+          <li>Fintech &amp; Blockchain · Finance for Non-Finance — MDI Gurgaon</li>
+        </ul>
+      </div>
+
+      <!-- Sachin -->
+      <div class="leader-card reveal">
+        <div class="leader-header">
+          <div class="leader-avatar">
+            <img src="assets/Sachin.jpg" alt="Biddappa &quot;Sachin&quot; Machanda" onerror="this.parentElement.innerHTML='BM';">
+          </div>
+          <div>
+            <h3 class="leader-name">Biddappa "Sachin" Machanda</h3>
+            <div class="leader-role">Co-Founder &amp; COO</div>
+            <div class="leader-loc">Metro Manila, Philippines</div>
+            <a href="https://www.linkedin.com/in/biddappa-machanda-750737a/" target="_blank" rel="noopener" class="leader-linkedin">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        <p class="leader-bio">
+          Two-decade BPO operations leader. Country Head and Vice President-class operator across Movate, iQor, Convergys, Accenture, and Thomson Reuters Philippines. Lean Six Sigma Master Black Belt with deep delivery, quality, and transformation expertise.
+        </p>
+        <div class="leader-section-title">Career Track</div>
+        <ul class="leader-list">
+          <li><span>Co-Founder &amp; COO, VSv Inc.</span><span class="leader-list-yr">2023 — Present</span></li>
+          <li><span>Country Head &amp; VP, Movate Philippines</span><span class="leader-list-yr">2021 — 2023</span></li>
+          <li><span>Senior Director of Operations, iQor Philippines</span><span class="leader-list-yr">2018 — 2021</span></li>
+          <li><span>Director Operations, Convergys Philippines</span><span class="leader-list-yr">2015 — 2018</span></li>
+          <li><span>Delivery Excellence Lead (VP), Accenture Philippines</span><span class="leader-list-yr">2012 — 2015</span></li>
+          <li><span>Global Head IRC PEx, Thomson Reuters Philippines</span><span class="leader-list-yr">2008 — 2012</span></li>
+        </ul>
+        <div class="leader-section-title">Credentials</div>
+        <ul class="leader-list">
+          <li>Lean Six Sigma Master Black Belt — BMGI</li>
+          <li>TRIZ Based Structured Innovation — Pera Neville Clark</li>
+          <li>Diploma TQM &amp; ISO 9000 — All India Institute of Management Studies</li>
+          <li>Professional, Academy for Healthcare Management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREDENTIALS ============ -->
+<section class="credentials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Registered &amp; Compliant</span>
+        <h2>A credentialed, <em>regulated entity.</em></h2>
+      </div>
+      <p class="section-lead">
+        VSv Inc. is a duly registered domestic corporation in the Republic of the Philippines, regulated by the Securities and Exchange Commission (SEC) and registered with the Bureau of Internal Revenue (BIR). Our governance, books, and tax compliance are maintained current.
+      </p>
+    </div>
+
+    <div class="cred-grid reveal">
+      <div class="cred-card">
+        <div class="cred-label">SEC Registration</div>
+        <div class="cred-value">2023080113481-00</div>
+        <div class="cred-detail">Securities and Exchange Commission · Republic of the Philippines · Issued 23 August 2023</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-label">BIR / TIN</div>
+        <div class="cred-value">633-095-671-000</div>
+        <div class="cred-detail">Bureau of Internal Revenue · RDO 049 North Makati · Issued 4 September 2023</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-label">Registered Office</div>
+        <div class="cred-value">5F Phinma Plaza, Rockwell Center</div>
+        <div class="cred-detail">39 Plaza Drive, Poblacion, Makati City 1210, Metro Manila</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="container contact-inner">
+    <div class="reveal">
+      <span class="eyebrow">Talk to Us</span>
+      <h2 class="contact-headline">Clarity starts with a <em>conversation.</em></h2>
+      <p class="section-lead">
+        Whether you're a founder considering an exit, a strategic acquirer with a clear thesis, or an investor exploring the BPO &amp; CX ecosystem — we'd value the discussion. Every inquiry is held in strict confidence and reviewed personally.
+      </p>
+
+      <div class="contact-channels">
+        <a href="mailto:varun@vsventures.org" class="contact-channel">
+          <span class="contact-channel-label">Email</span>
+          <span class="contact-channel-value">varun@vsventures.org →</span>
+        </a>
+        <a href="https://wa.me/639292539265" target="_blank" class="contact-channel">
+          <span class="contact-channel-label">WhatsApp / Mobile</span>
+          <span class="contact-channel-value">+63 929 253 9265 →</span>
+        </a>
+        <a href="#" class="contact-channel" id="calendlyLink">
+          <span class="contact-channel-label">Schedule a Call</span>
+          <span class="contact-channel-value">Book on Calendly →</span>
+        </a>
+        <a href="assets/VSv_Company_Profile.pdf" download class="contact-channel">
+          <span class="contact-channel-label">Company Profile</span>
+          <span class="contact-channel-value">Download PDF →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <div class="form-tag">◆ Confidential Inquiry</div>
+      <h3 class="form-title">Submit a confidential brief</h3>
+      <p class="form-sub">All inquiries reviewed personally by VSv leadership. NDA available on request.</p>
+
+      <form id="inquiryForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <label>Name</label>
+          <input type="text" name="name" required>
+        </div>
+        <div class="form-row">
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-row">
+          <label>Company</label>
+          <input type="text" name="company">
+        </div>
+        <div class="form-row">
+          <label>Inquiry Type</label>
+          <select name="type" required>
+            <option value="">Select an option</option>
+            <option value="sell-side">Sell-side mandate (founder / shareholder)</option>
+            <option value="buy-side">Buy-side mandate (strategic / financial buyer)</option>
+            <option value="capital">Capital introduction</option>
+            <option value="advisory">General advisory / partnership</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Brief context (optional)</label>
+          <textarea name="message" placeholder="A few sentences on your situation. We'll reply within 48 hours."></textarea>
+        </div>
+
+        <div class="form-disclaimer">
+          ◆ Information shared is held in strict confidence. We will only reach out via the channels you've provided. Specific transaction details require NDA before further disclosure.
+        </div>
+
+        <button type="submit" class="form-submit">Send Inquiry →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/vsv-logo.jpg" alt="VSv Inc.">
+        <p class="footer-tagline">"We walk with you the last mile."</p>
+        <p class="footer-desc">VSv Inc. (Velocity &amp; Synergy Ventures) — boutique, relationship-led M&amp;A advisory for the BPO, CX and tech-enabled services ecosystem. Founded 2023 · Makati, Philippines.</p>
+        <p class="footer-desc" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem;">In partnership with <a href="https://www.cxhorizon.com/" target="_blank" rel="noopener" style="color: var(--gold);">CX Horizon</a> — full-service BPO delivery, Philippines.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Sell-side Advisory</a></li>
+          <li><a href="#services">Buy-side Origination</a></li>
+          <li><a href="#services">Transaction Support</a></li>
+          <li><a href="#services">Deal Structuring</a></li>
+          <li><a href="https://www.cxhorizon.com/" target="_blank" rel="noopener">BPO Delivery (CX Horizon) ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Firm</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+          <li><a href="#deals">Track Record</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:varun@vsventures.org">varun@vsventures.org</a></li>
+          <li><a href="https://wa.me/639292539265">+63 929 253 9265</a></li>
+          <li>5F Phinma Plaza, Rockwell</li>
+          <li>Makati 1210, Philippines</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VSv Inc. All rights reserved. SEC Reg. No. 2023080113481-00</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODAL: Calendly placeholder ============ -->
+<div class="modal-overlay" id="calendlyModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('calendlyModal')">×</button>
+    <div class="modal-icon">→</div>
+    <h3>Schedule a Call</h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Replace this with your Calendly embed code once your link is ready. For now, please email us at <a href="mailto:varun@vsventures.org" style="color: var(--gold);">varun@vsventures.org</a> to set up a call.</p>
+    <a href="mailto:varun@vsventures.org" class="btn-primary" style="display: inline-block;">Email Us Instead →</a>
+  </div>
+</div>
+
+<!-- ============ MODAL: Form Success ============ -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('successModal')">×</button>
+    <div class="modal-icon">✓</div>
+    <h3>Inquiry Received</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Thank you. Your message has been sent to our team. We'll respond within 48 hours from <strong style="color: var(--gold);">varun@vsventures.org</strong>.</p>
+  </div>
+</div>
+
+<script>
+// ====== Mobile nav ======
+const navToggle = document.getElementById('navToggle');
+const navMobile = document.getElementById('navMobile');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('active');
+  navMobile.classList.toggle('active');
+});
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+
+// ====== Scroll reveal ======
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Failsafe: force any unrevealed section visible after 2s (in case observer misses any)
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+}, 2000);
+
+// Belt-and-braces: also force-reveal everything once the whole page is fully loaded
+window.addEventListener('load', () => {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+});
+
+// ====== Calendly modal ======
+document.getElementById('calendlyLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('calendlyModal').classList.add('active');
+});
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', (e) => {
+    if (e.target === m) m.classList.remove('active');
+  });
+});
+
+// ====== Inquiry form: opens email client with prefilled body ======
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  const subject = `[VSv Inquiry] ${data.get('type') || 'General'} — ${data.get('company') || data.get('name')}`;
+  const body =
+`Hello Varun,
+
+I'd like to submit a confidential inquiry through the VSv website.
+
+Name: ${data.get('name')}
+Email: ${data.get('email')}
+Company: ${data.get('company') || '—'}
+Inquiry Type: ${data.get('type')}
+
+Context:
+${data.get('message') || '—'}
+
+—
+Sent via vsventures.org`;
+
+  window.location.href = `mailto:varun@vsventures.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  document.getElementById('successModal').classList.add('active');
+  form.reset();
+}
+</script>
+
+</body>
+</html>
