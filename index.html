@@ -133,15 +133,6 @@ section {
   background: var(--bg);
   border: 1px solid var(--gold);
   color: var(--gold);
-  font-family: var(--body);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 0.85rem 1.5rem;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s ease;
-  font-weight: 500;
 }
 .nav-cta:hover {
   background: var(--gold);
@@ -1520,21 +1511,32 @@ section {
   color: var(--gold);
   font-weight: 500;
 }
+.chat-fab-cta .lc, .nav-chat-btn .lc { text-transform: none; }
 
-/* Ask VSv: gold fill, dark text — same size as Talk to Us */
-.nav-chat-btn {
-  background: var(--gold);
-  border: 1px solid var(--gold);
-  color: var(--bg);
+/* Ask VSv & Talk to Us: equal size, same box-sizing */
+.nav-chat-btn,
+.nav-cta {
+  box-sizing: border-box;
   font-family: var(--body);
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   padding: 0.85rem 1.5rem;
+  line-height: 1;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 0.6rem;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  text-decoration: none;
+}
+.nav-chat-btn {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--bg);
+  margin-right: 0.6rem;
 }
 .nav-chat-btn:hover { background: var(--gold-bright); border-color: var(--gold-bright); }
 
@@ -1782,7 +1784,7 @@ section {
       <li><a href="#process">Process</a></li>
       <li><a href="#mandates">Mandates</a></li>
       <li><a href="#leadership">Leadership</a></li>
-      <li><button class="nav-chat-btn" id="navChatBtn" onclick="if(window.AskVSv&&window.AskVSv.open)window.AskVSv.open();">Ask VSv</button>
+      <li><button class="nav-chat-btn" id="navChatBtn" onclick="document.getElementById('chatPanel').classList.add('open');document.getElementById('chatFab').classList.add('active');">Ask VS<span class="lc">v</span></button>
       <a href="#contact" class="nav-cta">Talk to Us</a></li>
     </ul>
     <div class="nav-toggle" id="navToggle">
@@ -2782,10 +2784,9 @@ window.AskVSv = window.AskVSv || {};
   window.AskVSv.close = closeChat;
   window.AskVSv.toggle = toggleChat;
 
-  fab.addEventListener('click', toggleChat);
-  if (closeBtn) closeBtn.addEventListener('click', closeChat);
+  // FAB click is handled by inline onclick attribute (more reliable, no double-firing)
   if (navBtn) navBtn.addEventListener('click', openChat);
-  console.log('[Ask VSv] Click handlers attached to FAB, close, nav');
+  console.log('[Ask VSv] Init complete; FAB uses inline onclick');
 
   document.querySelectorAll('.chat-persona-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2892,11 +2893,11 @@ window.AskVSv = window.AskVSv || {};
 
 
 <!-- ============ ASK VSv CHAT WIDGET ============ -->
-<button class="chat-fab" id="chatFab" aria-label="Ask VSv assistant" onclick="if(window.AskVSv&&window.AskVSv.toggle)window.AskVSv.toggle(event);else console.error('[Ask VSv] toggle not ready');">
+<button class="chat-fab" id="chatFab" aria-label="Ask VSv assistant" onclick="document.getElementById('chatPanel').classList.toggle('open');this.classList.toggle('active');">
   <img src="assets/vsv-logo.jpg" alt="VSv" class="chat-fab-logo">
   <span class="chat-fab-text">
     <span class="chat-fab-eyebrow">Buy or sell?</span>
-    <span class="chat-fab-cta">Ask VSv &rarr;</span>
+    <span class="chat-fab-cta">Ask VS<span class="lc">v</span> &rarr;</span>
   </span>
 </button>
 
@@ -2905,7 +2906,7 @@ window.AskVSv = window.AskVSv || {};
     <div class="chat-header-text">
       <span class="chat-header-title">Ask VSv</span>
     </div>
-    <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+    <button class="chat-close" id="chatClose" aria-label="Close chat" onclick="document.getElementById('chatPanel').classList.remove('open');document.getElementById('chatFab').classList.remove('active');">&times;</button>
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-persona-prompt" id="chatPersonaPrompt">
