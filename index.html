@@ -2433,7 +2433,6 @@ async function handleSubmit(e) {
   const inputRow = document.getElementById('chatInputRow');
   const input = document.getElementById('chatInput');
   const sendBtn = document.getElementById('chatSend');
-  const fabIcon = document.getElementById('chatFabIcon');
 
   let currentPersona = null;
   let conversationHistory = [];
@@ -2441,13 +2440,10 @@ async function handleSubmit(e) {
   function setFabState(open) {
     if (open) {
       fab.classList.add('active');
-      fabIcon.textContent = '\u00d7';
     } else {
       fab.classList.remove('active');
-      fabIcon.textContent = '\u201d';
     }
   }
-  fabIcon.textContent = '\u201d';
 
   function openChat() { panel.classList.add('open'); setFabState(true); }
   function closeChat() { panel.classList.remove('open'); setFabState(false); }
@@ -2562,15 +2558,18 @@ async function handleSubmit(e) {
 
 
 <!-- ============ ASK VSv CHAT WIDGET ============ -->
-<button class="chat-fab" id="chatFab" aria-label="Ask VSv">
-  <span id="chatFabIcon">&times;</span>
+<button class="chat-fab" id="chatFab" aria-label="Ask VSv assistant">
+  <span class="chat-fab-icon" aria-hidden="true">&rdquo;</span>
+  <span class="chat-fab-text">
+    <span class="chat-fab-eyebrow">Buy or sell?</span>
+    <span class="chat-fab-cta">Ask VSv &rarr;</span>
+  </span>
 </button>
 
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Ask VSv assistant">
   <div class="chat-header">
     <div class="chat-header-text">
       <span class="chat-header-title">Ask VSv</span>
-      <span class="chat-header-sub">Confidential · NDA-aware</span>
     </div>
     <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
   </div>
