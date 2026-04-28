@@ -1743,6 +1743,110 @@ section {
   font-family: var(--body);
 }
 
+
+/* Lead capture form (inside chat panel) */
+.chat-lead-toggle {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--gold);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.85rem;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.chat-lead-toggle:hover { background: rgba(212, 165, 116, 0.06); color: var(--gold-bright); }
+.chat-lead-toggle .arrow { font-size: 0.75rem; margin-left: 0.4rem; }
+.chat-lead-form {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding: 1rem;
+  background: var(--bg-elevated);
+}
+.chat-lead-form.open { display: block; }
+.chat-lead-form-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.chat-lead-form-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+  font-family: var(--display);
+  font-style: italic;
+}
+.chat-lead-form input,
+.chat-lead-form textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--body);
+  font-size: 0.82rem;
+  margin-bottom: 0.55rem;
+  font-weight: 300;
+  box-sizing: border-box;
+}
+.chat-lead-form input:focus,
+.chat-lead-form textarea:focus { outline: none; border-color: var(--gold); }
+.chat-lead-form input::placeholder,
+.chat-lead-form textarea::placeholder { color: var(--text-muted); font-style: italic; }
+.chat-lead-form textarea { resize: vertical; min-height: 50px; max-height: 100px; }
+.chat-lead-form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.chat-lead-submit {
+  flex: 1;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--bg);
+  padding: 0.6rem 1rem;
+  font-family: var(--body);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.chat-lead-submit:hover { background: var(--gold-bright); border-color: var(--gold-bright); }
+.chat-lead-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+.chat-lead-cancel {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 0.6rem 1rem;
+  font-family: var(--body);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.chat-lead-cancel:hover { color: var(--gold); border-color: var(--gold); }
+.chat-lead-thanks {
+  display: none;
+  text-align: center;
+  padding: 1.25rem;
+  color: var(--gold);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.95rem;
+  border-top: 1px solid var(--border);
+  background: rgba(212, 165, 116, 0.04);
+}
+.chat-lead-thanks.show { display: block; }
+
 @media (max-width: 600px) {
   .chat-fab {
     bottom: 1rem;
@@ -2835,6 +2939,53 @@ window.AskVSv.greetings = {
     }
   };
 
+  window.AskVSv.submitLead = async function() {
+    const name = document.getElementById('chatLeadName').value.trim();
+    const email = document.getElementById('chatLeadEmail').value.trim();
+    const firm = document.getElementById('chatLeadFirm').value.trim();
+    const note = document.getElementById('chatLeadNote').value.trim();
+    const submitBtn = document.getElementById('chatLeadSubmit');
+    const formEl = document.getElementById('chatLeadForm');
+    const toggleBtn = document.getElementById('chatLeadToggle');
+    const thanks = document.getElementById('chatLeadThanks');
+    if (!name || !email) {
+      alert('Please provide at least your name and email.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending\u2026';
+    try {
+      const response = await fetch('/.netlify/functions/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email, firm, note,
+          sessionId: window.AskVSv.sessionId,
+          persona: window.AskVSv.currentPersona
+        })
+      });
+      if (!response.ok) {
+        const err = await response.text();
+        console.error('Lead submit error:', err);
+        alert('Could not send right now. Please email varun@vsventures.org directly.');
+      } else {
+        formEl.classList.remove('open');
+        toggleBtn.style.display = 'none';
+        thanks.classList.add('show');
+      }
+    } catch (err) {
+      console.error('Lead submit threw:', err);
+      alert('Connection issue. Please email varun@vsventures.org directly.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send to Varun \u2192';
+    }
+  };
+
   console.log('[Ask VSv] globals defined:', Object.keys(window.AskVSv));
 
   // Wire up Enter key & auto-resize once DOM exists (defer until input is present)
@@ -2898,7 +3049,24 @@ window.AskVSv.greetings = {
     <textarea class="chat-input" id="chatInput" placeholder="Type your message&hellip;" rows="1"></textarea>
     <button class="chat-send" id="chatSend" onclick="window.AskVSv.send()">Send</button>
   </div>
-  <div class="chat-footer-note">Replies generated by AI &middot; Always verify with Varun for binding terms</div>
+  <button class="chat-lead-toggle" id="chatLeadToggle" type="button" onclick="document.getElementById('chatLeadForm').classList.toggle('open');">Share contact &mdash; have Varun reach out <span class="arrow">&rarr;</span></button>
+
+<div class="chat-lead-form" id="chatLeadForm">
+  <div class="chat-lead-form-title">Leave your details</div>
+  <div class="chat-lead-form-sub">Varun will reach out within 48 hours. All inquiries held in strict confidence.</div>
+  <input type="text" id="chatLeadName" placeholder="Full name" autocomplete="name">
+  <input type="email" id="chatLeadEmail" placeholder="Email address" autocomplete="email">
+  <input type="text" id="chatLeadFirm" placeholder="Firm / company (optional)" autocomplete="organization">
+  <textarea id="chatLeadNote" placeholder="Anything specific to mention? (optional)"></textarea>
+  <div class="chat-lead-form-actions">
+    <button class="chat-lead-submit" id="chatLeadSubmit" type="button" onclick="window.AskVSv.submitLead()">Send to Varun &rarr;</button>
+    <button class="chat-lead-cancel" type="button" onclick="document.getElementById('chatLeadForm').classList.remove('open');">Cancel</button>
+  </div>
+</div>
+
+<div class="chat-lead-thanks" id="chatLeadThanks">Thank you. Your details are with Varun &mdash; he&rsquo;ll respond within 48 hours.</div>
+
+<div class="chat-footer-note">Replies generated by AI &middot; Always verify with Varun for binding terms</div>
 </div>
 
 </body>
