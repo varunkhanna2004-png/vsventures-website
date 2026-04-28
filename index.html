@@ -2729,80 +2729,16 @@ async function handleSubmit(e) {
   }
 }
 
-// ====== Ask VSv chat widget ======
-// Make the open/close functions globally accessible so onclick attributes can call them
-window.AskVSv = window.AskVSv || {};
+// ====== Ask VSv chat widget — global functions, no DOM capture at script-run ======
+window.AskVSv = window.AskVSv || { currentPersona: null, history: [] };
 
-(function initAskVSv() {
-  console.log('[Ask VSv] init starting');
-  const fab = document.getElementById('chatFab');
-  const panel = document.getElementById('chatPanel');
-  const closeBtn = document.getElementById('chatClose');
-  const navBtn = document.getElementById('navChatBtn');
-  const messages = document.getElementById('chatMessages');
-  const personaPrompt = document.getElementById('chatPersonaPrompt');
-  const inputRow = document.getElementById('chatInputRow');
-  const input = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('chatSend');
+window.AskVSv.greetings = {
+  buy: "Welcome. We currently have **8 active sell-side opportunities** across CX, BPO, healthcare RCM, and AI-augmented services — codenames Demeter through Aurora. Tell me what sector or geography you’re focused on, or ask about any specific codename. I can share teaser-level detail; named entities are released only against an NDA.",
+  sell: "Welcome. We currently have **5 active buyer mandates** — from Nasdaq-listed strategics to PE-backed CX leaders to AI-native acquirers. To help match you, tell me a bit about your business: sector, rough revenue, geography, and what kind of outcome you’re considering. Or ask me anything about VSv’s sell-side process.",
+  general: "Welcome to VSv. We’re a boutique M&A advisory firm in Makati, Philippines, focused on BPO, CX, and tech-enabled services. Ask me anything about the firm, our team, our process, or our current mandates."
+};
 
-  // Defensive: confirm core elements exist before wiring up
-  if (!fab || !panel) {
-    console.error('[Ask VSv] Critical elements missing:', { fab: !!fab, panel: !!panel });
-    return;
-  }
-  console.log('[Ask VSv] Chat widget initialised', { fab: fab.id, panel: panel.id });
-
-  let currentPersona = null;
-  let conversationHistory = [];
-
-  function setFabState(open) {
-    if (open) {
-      fab.classList.add('active');
-    } else {
-      fab.classList.remove('active');
-    }
-  }
-
-  function openChat() {
-    console.log('[Ask VSv] Opening chat');
-    panel.classList.add('open');
-    setFabState(true);
-  }
-  function closeChat() {
-    console.log('[Ask VSv] Closing chat');
-    panel.classList.remove('open');
-    setFabState(false);
-  }
-  function toggleChat(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    console.log('[Ask VSv] toggleChat called, currently open:', panel.classList.contains('open'));
-    panel.classList.contains('open') ? closeChat() : openChat();
-  }
-
-  // Expose globally so onclick attributes can call them too
-  window.AskVSv.open = openChat;
-  window.AskVSv.close = closeChat;
-  window.AskVSv.toggle = toggleChat;
-
-  // FAB click is handled by inline onclick attribute (more reliable, no double-firing)
-  if (navBtn) navBtn.addEventListener('click', openChat);
-  console.log('[Ask VSv] Init complete; FAB uses inline onclick');
-
-  document.querySelectorAll('.chat-persona-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentPersona = btn.dataset.persona;
-      personaPrompt.style.display = 'none';
-      inputRow.style.display = 'flex';
-      const greetings = {
-        buy: "Welcome. We currently have **8 active sell-side opportunities** across CX, BPO, healthcare RCM, and AI-augmented services \u2014 codenames Demeter through Aurora. Tell me what sector or geography you\u2019re focused on, or ask about any specific codename. I can share teaser-level detail; named entities are released only against an NDA.",
-        sell: "Welcome. We currently have **5 active buyer mandates** \u2014 from Nasdaq-listed strategics to PE-backed CX leaders to AI-native acquirers. To help match you, tell me a bit about your business: sector, rough revenue, geography, and what kind of outcome you\u2019re considering. Or ask me anything about VSv\u2019s sell-side process.",
-        general: "Welcome to VSv. We\u2019re a boutique M&A advisory firm in Makati, Philippines, focused on BPO, CX, and tech-enabled services. Ask me anything about the firm, our team, our process, or our current mandates."
-      };
-      addBotMessage(greetings[currentPersona] || greetings.general);
-      input.focus();
-    });
-  });
-
+(function() {
   function formatBot(text) {
     let html = text
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -2811,60 +2747,74 @@ window.AskVSv = window.AskVSv || {};
       .replace(/\n/g, '<br>');
     return '<p>' + html + '</p>';
   }
+  function getMessages() { return document.getElementById('chatMessages'); }
+  function getInput()    { return document.getElementById('chatInput'); }
+  function getSendBtn()  { return document.getElementById('chatSend'); }
 
   function addBotMessage(text) {
+    const m = getMessages(); if (!m) { console.error('[Ask VSv] chatMessages not found'); return; }
     const div = document.createElement('div');
     div.className = 'chat-msg bot';
     div.innerHTML = formatBot(text);
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+    m.appendChild(div); m.scrollTop = m.scrollHeight;
   }
-
   function addUserMessage(text) {
+    const m = getMessages(); if (!m) return;
     const div = document.createElement('div');
     div.className = 'chat-msg user';
     div.textContent = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+    m.appendChild(div); m.scrollTop = m.scrollHeight;
   }
-
   function addThinking() {
+    const m = getMessages(); if (!m) return;
     const div = document.createElement('div');
     div.className = 'chat-msg bot thinking';
     div.id = 'chatThinking';
-    div.textContent = 'Thinking\u2026';
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+    div.textContent = 'Thinking…';
+    m.appendChild(div); m.scrollTop = m.scrollHeight;
   }
-
   function removeThinking() {
-    const t = document.getElementById('chatThinking');
-    if (t) t.remove();
+    const t = document.getElementById('chatThinking'); if (t) t.remove();
   }
 
-  async function sendMessage() {
+  // ===== Globally callable from inline onclick. These look up DOM at CALL time, not script-run time =====
+  window.AskVSv.selectPersona = function(persona) {
+    console.log('[Ask VSv] persona selected:', persona);
+    window.AskVSv.currentPersona = persona;
+    const prompt = document.getElementById('chatPersonaPrompt');
+    const inputRow = document.getElementById('chatInputRow');
+    if (prompt) prompt.style.display = 'none';
+    if (inputRow) inputRow.style.display = 'flex';
+    addBotMessage(window.AskVSv.greetings[persona] || window.AskVSv.greetings.general);
+    const inp = getInput(); if (inp) inp.focus();
+  };
+
+  window.AskVSv.send = async function() {
+    const input = getInput();
+    const sendBtn = getSendBtn();
+    if (!input) { console.error('[Ask VSv] input not found'); return; }
     const text = input.value.trim();
     if (!text) return;
     addUserMessage(text);
-    conversationHistory.push({ role: 'user', content: text });
+    window.AskVSv.history.push({ role: 'user', content: text });
     input.value = '';
     input.style.height = 'auto';
-    sendBtn.disabled = true;
+    if (sendBtn) sendBtn.disabled = true;
     addThinking();
     try {
       const response = await fetch('/.netlify/functions/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: conversationHistory, persona: currentPersona })
+        body: JSON.stringify({ messages: window.AskVSv.history, persona: window.AskVSv.currentPersona })
       });
       removeThinking();
       if (!response.ok) {
-        addBotMessage("I\u2019m having trouble connecting right now. Please email **varun@vsventures.org** directly and we\u2019ll respond promptly.");
+        addBotMessage("I’m having trouble connecting right now. Please email **varun@vsventures.org** directly and we’ll respond promptly.");
         console.error('Chat error:', response.status, await response.text());
       } else {
         const data = await response.json();
         const reply = data.reply || "(no response)";
-        conversationHistory.push({ role: 'assistant', content: reply });
+        window.AskVSv.history.push({ role: 'assistant', content: reply });
         addBotMessage(reply);
       }
     } catch (err) {
@@ -2872,22 +2822,30 @@ window.AskVSv = window.AskVSv || {};
       console.error(err);
       addBotMessage("Connection issue. Please email **varun@vsventures.org** directly.");
     } finally {
-      sendBtn.disabled = false;
-      input.focus();
+      if (sendBtn) sendBtn.disabled = false;
+      if (input) input.focus();
     }
-  }
+  };
 
-  sendBtn.addEventListener('click', sendMessage);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
+  console.log('[Ask VSv] globals defined:', Object.keys(window.AskVSv));
+
+  // Wire up Enter key & auto-resize once DOM exists (defer until input is present)
+  function wireInput() {
+    const inp = document.getElementById('chatInput');
+    if (!inp) {
+      document.addEventListener('DOMContentLoaded', wireInput);
+      return;
     }
-  });
-  input.addEventListener('input', () => {
-    input.style.height = 'auto';
-    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
-  });
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.AskVSv.send(); }
+    });
+    inp.addEventListener('input', function() {
+      inp.style.height = 'auto';
+      inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
+    });
+    console.log('[Ask VSv] input wired');
+  }
+  wireInput();
 })();
 </script>
 
