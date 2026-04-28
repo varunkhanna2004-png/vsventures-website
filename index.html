@@ -130,14 +130,18 @@ section {
 }
 .nav-links a:hover { color: var(--gold); }
 .nav-cta {
-  padding: 0.7rem 1.5rem;
-  background: transparent;
+  background: var(--bg);
   border: 1px solid var(--gold);
   color: var(--gold);
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  padding: 0.85rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 .nav-cta:hover {
   background: var(--gold);
@@ -1517,21 +1521,22 @@ section {
   font-weight: 500;
 }
 
+/* Ask VSv: gold fill, dark text — same size as Talk to Us */
 .nav-chat-btn {
-  background: none;
+  background: var(--gold);
   border: 1px solid var(--gold);
-  color: var(--gold);
+  color: var(--bg);
   font-family: var(--body);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.6rem 1rem;
+  padding: 0.85rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-left: 0.5rem;
-  font-weight: 400;
+  margin-right: 0.6rem;
+  font-weight: 500;
 }
-.nav-chat-btn:hover { background: var(--gold); color: var(--bg); }
+.nav-chat-btn:hover { background: var(--gold-bright); border-color: var(--gold-bright); }
 
 .chat-panel {
   position: fixed;
@@ -1777,7 +1782,7 @@ section {
       <li><a href="#process">Process</a></li>
       <li><a href="#mandates">Mandates</a></li>
       <li><a href="#leadership">Leadership</a></li>
-      <li><button class="nav-chat-btn" id="navChatBtn">Ask VSv</button>
+      <li><button class="nav-chat-btn" id="navChatBtn" onclick="if(window.AskVSv&&window.AskVSv.open)window.AskVSv.open();">Ask VSv</button>
       <a href="#contact" class="nav-cta">Talk to Us</a></li>
     </ul>
     <div class="nav-toggle" id="navToggle">
@@ -2723,7 +2728,11 @@ async function handleSubmit(e) {
 }
 
 // ====== Ask VSv chat widget ======
-(function() {
+// Make the open/close functions globally accessible so onclick attributes can call them
+window.AskVSv = window.AskVSv || {};
+
+(function initAskVSv() {
+  console.log('[Ask VSv] init starting');
   const fab = document.getElementById('chatFab');
   const panel = document.getElementById('chatPanel');
   const closeBtn = document.getElementById('chatClose');
@@ -2739,7 +2748,7 @@ async function handleSubmit(e) {
     console.error('[Ask VSv] Critical elements missing:', { fab: !!fab, panel: !!panel });
     return;
   }
-  console.log('[Ask VSv] Chat widget initialised');
+  console.log('[Ask VSv] Chat widget initialised', { fab: fab.id, panel: panel.id });
 
   let currentPersona = null;
   let conversationHistory = [];
@@ -2758,16 +2767,25 @@ async function handleSubmit(e) {
     setFabState(true);
   }
   function closeChat() {
+    console.log('[Ask VSv] Closing chat');
     panel.classList.remove('open');
     setFabState(false);
   }
-  function toggleChat() {
+  function toggleChat(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    console.log('[Ask VSv] toggleChat called, currently open:', panel.classList.contains('open'));
     panel.classList.contains('open') ? closeChat() : openChat();
   }
+
+  // Expose globally so onclick attributes can call them too
+  window.AskVSv.open = openChat;
+  window.AskVSv.close = closeChat;
+  window.AskVSv.toggle = toggleChat;
 
   fab.addEventListener('click', toggleChat);
   if (closeBtn) closeBtn.addEventListener('click', closeChat);
   if (navBtn) navBtn.addEventListener('click', openChat);
+  console.log('[Ask VSv] Click handlers attached to FAB, close, nav');
 
   document.querySelectorAll('.chat-persona-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2874,7 +2892,7 @@ async function handleSubmit(e) {
 
 
 <!-- ============ ASK VSv CHAT WIDGET ============ -->
-<button class="chat-fab" id="chatFab" aria-label="Ask VSv assistant">
+<button class="chat-fab" id="chatFab" aria-label="Ask VSv assistant" onclick="if(window.AskVSv&&window.AskVSv.toggle)window.AskVSv.toggle(event);else console.error('[Ask VSv] toggle not ready');">
   <img src="assets/vsv-logo.jpg" alt="VSv" class="chat-fab-logo">
   <span class="chat-fab-text">
     <span class="chat-fab-eyebrow">Buy or sell?</span>
