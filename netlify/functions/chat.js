@@ -160,24 +160,29 @@ exports.handler = async (event) => {
     const country = event.headers['x-country'] || event.headers['x-nf-geo'] || 'unknown';
     const isFirstMessage = messages.filter(m => m.role === 'user').length === 1;
 
-    // 1. Google Sheet (every message)
+    // 1. Google Sheet (every message — awaited so it actually completes)
     if (process.env.SHEET_WEBHOOK_URL) {
-      fetch(process.env.SHEET_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          sessionId,
-          persona: persona || 'general',
-          country,
-          userMessage: lastUserMessage,
-          aiResponse: replyText
-        })
-      }).catch(err => console.error('Sheet log failed:', err));
+      try {
+        await fetch(process.env.SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            sessionId,
+            persona: persona || 'general',
+            country,
+            userMessage: lastUserMessage,
+            aiResponse: replyText
+          })
+        });
+        console.log('[sheet] logged');
+      } catch (err) {
+        console.error('[sheet] failed:', err);
+      }
     }
 
-    // 2. Email every message via Resend, threaded by sessionId so Gmail groups them
-    //    First message → "New chat" subject; subsequent → "Re: ..." so they thread
+    // 2. Email every message via Resend (AWAITED — must complete before function returns
+    //    or serverless platform kills the request)
     if (process.env.RESEND_API_KEY) {
       const messageNum = messages.filter(m => m.role === 'user').length;
       const subjectPrefix = isFirstMessage
@@ -208,19 +213,34 @@ exports.handler = async (event) => {
         `Reply to this email is for your records only — visitor will not see it.`
       ].join('\n');
 
-      fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          from: process.env.RESEND_FROM || 'VSv Chat <onboarding@resend.dev>',
-          to: process.env.NOTIFY_EMAIL || 'varunkhanna2004@gmail.com',
-          subject: subject,
-          text: emailBody
-        })
-      }).catch(err => console.error('Resend email failed:', err));
+      const toAddr = process.env.NOTIFY_EMAIL || 'varunkhanna2004@gmail.com';
+      console.log(`[email] sending to=${toAddr}, subject="${subject.slice(0, 60)}..."`);
+
+      try {
+        const r = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            from: process.env.RESEND_FROM || 'VSv Chat <onboarding@resend.dev>',
+            to: toAddr,
+            subject: subject,
+            text: emailBody
+          })
+        });
+        const respText = await r.text();
+        if (r.ok) {
+          console.log(`[email] sent OK: ${respText.slice(0, 200)}`);
+        } else {
+          console.error(`[email] Resend ${r.status}: ${respText}`);
+        }
+      } catch (err) {
+        console.error('[email] fetch threw:', err);
+      }
+    } else {
+      console.log('[email] RESEND_API_KEY not set, skipping');
     }
 
     return {
