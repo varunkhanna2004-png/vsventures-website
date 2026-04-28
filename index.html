@@ -1477,7 +1477,8 @@ section {
       <li><a href="#process">Process</a></li>
       <li><a href="#mandates">Mandates</a></li>
       <li><a href="#leadership">Leadership</a></li>
-      <li><a href="#contact" class="nav-cta">Talk to Us</a></li>
+      <li><button class="nav-chat-btn" id="navChatBtn">Ask VSv</button>
+      <a href="#contact" class="nav-cta">Talk to Us</a></li>
     </ul>
     <div class="nav-toggle" id="navToggle">
       <span></span><span></span><span></span>
@@ -2420,7 +2421,185 @@ async function handleSubmit(e) {
     submitBtn.disabled = false;
   }
 }
+
+// ====== Ask VSv chat widget ======
+(function() {
+  const fab = document.getElementById('chatFab');
+  const panel = document.getElementById('chatPanel');
+  const closeBtn = document.getElementById('chatClose');
+  const navBtn = document.getElementById('navChatBtn');
+  const messages = document.getElementById('chatMessages');
+  const personaPrompt = document.getElementById('chatPersonaPrompt');
+  const inputRow = document.getElementById('chatInputRow');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('chatSend');
+  const fabIcon = document.getElementById('chatFabIcon');
+
+  let currentPersona = null;
+  let conversationHistory = [];
+
+  function setFabState(open) {
+    if (open) {
+      fab.classList.add('active');
+      fabIcon.textContent = '\u00d7';
+    } else {
+      fab.classList.remove('active');
+      fabIcon.textContent = '\u201d';
+    }
+  }
+  fabIcon.textContent = '\u201d';
+
+  function openChat() { panel.classList.add('open'); setFabState(true); }
+  function closeChat() { panel.classList.remove('open'); setFabState(false); }
+  function toggleChat() { panel.classList.contains('open') ? closeChat() : openChat(); }
+
+  fab.addEventListener('click', toggleChat);
+  closeBtn.addEventListener('click', closeChat);
+  if (navBtn) navBtn.addEventListener('click', openChat);
+
+  document.querySelectorAll('.chat-persona-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentPersona = btn.dataset.persona;
+      personaPrompt.style.display = 'none';
+      inputRow.style.display = 'flex';
+      const greetings = {
+        buy: "Welcome. We currently have **8 active sell-side opportunities** across CX, BPO, healthcare RCM, and AI-augmented services \u2014 codenames Demeter through Aurora. Tell me what sector or geography you\u2019re focused on, or ask about any specific codename. I can share teaser-level detail; named entities are released only against an NDA.",
+        sell: "Welcome. We currently have **5 active buyer mandates** \u2014 from Nasdaq-listed strategics to PE-backed CX leaders to AI-native acquirers. To help match you, tell me a bit about your business: sector, rough revenue, geography, and what kind of outcome you\u2019re considering. Or ask me anything about VSv\u2019s sell-side process.",
+        general: "Welcome to VSv. We\u2019re a boutique M&A advisory firm in Makati, Philippines, focused on BPO, CX, and tech-enabled services. Ask me anything about the firm, our team, our process, or our current mandates."
+      };
+      addBotMessage(greetings[currentPersona] || greetings.general);
+      input.focus();
+    });
+  });
+
+  function formatBot(text) {
+    let html = text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n+/g, '</p><p>')
+      .replace(/\n/g, '<br>');
+    return '<p>' + html + '</p>';
+  }
+
+  function addBotMessage(text) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot';
+    div.innerHTML = formatBot(text);
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addUserMessage(text) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg user';
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addThinking() {
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot thinking';
+    div.id = 'chatThinking';
+    div.textContent = 'Thinking\u2026';
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function removeThinking() {
+    const t = document.getElementById('chatThinking');
+    if (t) t.remove();
+  }
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    addUserMessage(text);
+    conversationHistory.push({ role: 'user', content: text });
+    input.value = '';
+    input.style.height = 'auto';
+    sendBtn.disabled = true;
+    addThinking();
+    try {
+      const response = await fetch('/.netlify/functions/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: conversationHistory, persona: currentPersona })
+      });
+      removeThinking();
+      if (!response.ok) {
+        addBotMessage("I\u2019m having trouble connecting right now. Please email **varun@vsventures.org** directly and we\u2019ll respond promptly.");
+        console.error('Chat error:', response.status, await response.text());
+      } else {
+        const data = await response.json();
+        const reply = data.reply || "(no response)";
+        conversationHistory.push({ role: 'assistant', content: reply });
+        addBotMessage(reply);
+      }
+    } catch (err) {
+      removeThinking();
+      console.error(err);
+      addBotMessage("Connection issue. Please email **varun@vsventures.org** directly.");
+    } finally {
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+})();
 </script>
+
+
+<!-- ============ ASK VSv CHAT WIDGET ============ -->
+<button class="chat-fab" id="chatFab" aria-label="Ask VSv">
+  <span id="chatFabIcon">&times;</span>
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Ask VSv assistant">
+  <div class="chat-header">
+    <div class="chat-header-text">
+      <span class="chat-header-title">Ask VSv</span>
+      <span class="chat-header-sub">Confidential · NDA-aware</span>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-persona-prompt" id="chatPersonaPrompt">
+      <div class="chat-persona-q">Welcome. Are you looking to <em>buy</em> or <em>sell</em>?</div>
+      <div class="chat-persona-buttons">
+        <button class="chat-persona-btn" data-persona="buy">
+          <span>I&rsquo;m looking to <strong style="color: var(--gold);">acquire</strong></span>
+          <span class="arrow">&rarr;</span>
+        </button>
+        <button class="chat-persona-btn" data-persona="sell">
+          <span>I&rsquo;m looking to <strong style="color: var(--gold);">sell</strong> my company</span>
+          <span class="arrow">&rarr;</span>
+        </button>
+        <button class="chat-persona-btn" data-persona="general">
+          <span>Just exploring &mdash; tell me about VSv</span>
+          <span class="arrow">&rarr;</span>
+        </button>
+      </div>
+      <div class="chat-persona-sub">Strictly confidential. Specific deal details disclosed under NDA only.</div>
+    </div>
+  </div>
+  <div class="chat-input-row" id="chatInputRow" style="display: none;">
+    <textarea class="chat-input" id="chatInput" placeholder="Type your message&hellip;" rows="1"></textarea>
+    <button class="chat-send" id="chatSend">Send</button>
+  </div>
+  <div class="chat-footer-note">Replies generated by AI &middot; Always verify with Varun for binding terms</div>
+</div>
 
 </body>
 </html>
