@@ -176,22 +176,36 @@ exports.handler = async (event) => {
       }).catch(err => console.error('Sheet log failed:', err));
     }
 
-    // 2. Email alert via Resend (only on first message of session, to avoid noise)
-    if (isFirstMessage && process.env.RESEND_API_KEY) {
+    // 2. Email every message via Resend, threaded by sessionId so Gmail groups them
+    //    First message → "New chat" subject; subsequent → "Re: ..." so they thread
+    if (process.env.RESEND_API_KEY) {
+      const messageNum = messages.filter(m => m.role === 'user').length;
+      const subjectPrefix = isFirstMessage
+        ? `[VSv Chat] ${persona || 'general'} — ${sessionId.slice(-6)}`
+        : `Re: [VSv Chat] ${persona || 'general'} — ${sessionId.slice(-6)}`;
+
+      const subject = isFirstMessage
+        ? `${subjectPrefix} · ${lastUserMessage.slice(0, 50)}`
+        : subjectPrefix;
+
       const emailBody = [
-        `New chat started on vsventures.org`,
+        isFirstMessage
+          ? `New chat started on vsventures.org`
+          : `Follow-up message in ongoing chat (#${messageNum})`,
         ``,
         `Persona: ${persona || 'general'}`,
         `Session: ${sessionId}`,
         `Country: ${country}`,
+        `Time: ${new Date().toISOString()}`,
         ``,
-        `--- Opening question ---`,
+        `--- Visitor asked ---`,
         lastUserMessage,
         ``,
-        `--- AI response ---`,
+        `--- VSv assistant replied ---`,
         replyText,
         ``,
-        `View full transcript in your Google Sheet log.`
+        `---`,
+        `Reply to this email is for your records only — visitor will not see it.`
       ].join('\n');
 
       fetch('https://api.resend.com/emails', {
@@ -201,9 +215,9 @@ exports.handler = async (event) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: process.env.RESEND_FROM || 'onboarding@resend.dev',
-          to: process.env.NOTIFY_EMAIL || 'varun@vsventures.org',
-          subject: `[VSv Chat] New ${persona || 'general'} inquiry — ${lastUserMessage.slice(0, 60)}`,
+          from: process.env.RESEND_FROM || 'VSv Chat <onboarding@resend.dev>',
+          to: process.env.NOTIFY_EMAIL || 'varunkhanna2004@gmail.com',
+          subject: subject,
           text: emailBody
         })
       }).catch(err => console.error('Resend email failed:', err));
