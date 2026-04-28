@@ -154,6 +154,61 @@ exports.handler = async (event) => {
     const data = await response.json();
     const replyText = data.content?.[0]?.text || '(no response)';
 
+    // ===== Log conversation (fire-and-forget; don't block response) =====
+    const lastUserMessage = [...messages].reverse().find(m => m.role === 'user')?.content || '';
+    const sessionId = body.sessionId || 'unknown';
+    const country = event.headers['x-country'] || event.headers['x-nf-geo'] || 'unknown';
+    const isFirstMessage = messages.filter(m => m.role === 'user').length === 1;
+
+    // 1. Google Sheet (every message)
+    if (process.env.SHEET_WEBHOOK_URL) {
+      fetch(process.env.SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          timestamp: new Date().toISOString(),
+          sessionId,
+          persona: persona || 'general',
+          country,
+          userMessage: lastUserMessage,
+          aiResponse: replyText
+        })
+      }).catch(err => console.error('Sheet log failed:', err));
+    }
+
+    // 2. Email alert via Resend (only on first message of session, to avoid noise)
+    if (isFirstMessage && process.env.RESEND_API_KEY) {
+      const emailBody = [
+        `New chat started on vsventures.org`,
+        ``,
+        `Persona: ${persona || 'general'}`,
+        `Session: ${sessionId}`,
+        `Country: ${country}`,
+        ``,
+        `--- Opening question ---`,
+        lastUserMessage,
+        ``,
+        `--- AI response ---`,
+        replyText,
+        ``,
+        `View full transcript in your Google Sheet log.`
+      ].join('\n');
+
+      fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: process.env.RESEND_FROM || 'onboarding@resend.dev',
+          to: process.env.NOTIFY_EMAIL || 'varun@vsventures.org',
+          subject: `[VSv Chat] New ${persona || 'general'} inquiry — ${lastUserMessage.slice(0, 60)}`,
+          text: emailBody
+        })
+      }).catch(err => console.error('Resend email failed:', err));
+    }
+
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },

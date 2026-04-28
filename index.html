@@ -2730,7 +2730,11 @@ async function handleSubmit(e) {
 }
 
 // ====== Ask VSv chat widget — global functions, no DOM capture at script-run ======
-window.AskVSv = window.AskVSv || { currentPersona: null, history: [] };
+window.AskVSv = window.AskVSv || {
+  currentPersona: null,
+  history: [],
+  sessionId: 'vsv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)
+};
 
 window.AskVSv.greetings = {
   buy: "Welcome. We currently have **8 active sell-side opportunities** across CX, BPO, healthcare RCM, and AI-augmented services — codenames Demeter through Aurora. Tell me what sector or geography you’re focused on, or ask about any specific codename. I can share teaser-level detail; named entities are released only against an NDA.",
@@ -2805,7 +2809,11 @@ window.AskVSv.greetings = {
       const response = await fetch('/.netlify/functions/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: window.AskVSv.history, persona: window.AskVSv.currentPersona })
+        body: JSON.stringify({
+          messages: window.AskVSv.history,
+          persona: window.AskVSv.currentPersona,
+          sessionId: window.AskVSv.sessionId
+        })
       });
       removeThinking();
       if (!response.ok) {
