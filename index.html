@@ -1485,22 +1485,16 @@ section {
   transform: translateY(-2px);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(212, 165, 116, 0.3);
 }
-.chat-fab.active { display: none; }
-.chat-fab-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-deep), var(--gold));
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1.25rem;
+.chat-fab.active { opacity: 0.5; pointer-events: none; }
+.chat-fab-logo {
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
-  border: 1px solid var(--gold-bright);
-  line-height: 1;
+  display: block;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+  padding: 4px;
+  object-fit: contain;
 }
 .chat-fab-text {
   display: flex;
@@ -1749,7 +1743,7 @@ section {
     padding: 0.75rem 1rem;
     gap: 0.6rem;
   }
-  .chat-fab-icon { width: 32px; height: 32px; font-size: 1rem; }
+  .chat-fab-logo { width: 34px; height: 34px; padding: 3px; }
   .chat-fab-eyebrow { font-size: 0.72rem; }
   .chat-fab-cta { font-size: 0.62rem; letter-spacing: 0.18em; }
   .chat-panel {
@@ -2740,6 +2734,13 @@ async function handleSubmit(e) {
   const input = document.getElementById('chatInput');
   const sendBtn = document.getElementById('chatSend');
 
+  // Defensive: confirm core elements exist before wiring up
+  if (!fab || !panel) {
+    console.error('[Ask VSv] Critical elements missing:', { fab: !!fab, panel: !!panel });
+    return;
+  }
+  console.log('[Ask VSv] Chat widget initialised');
+
   let currentPersona = null;
   let conversationHistory = [];
 
@@ -2751,12 +2752,21 @@ async function handleSubmit(e) {
     }
   }
 
-  function openChat() { panel.classList.add('open'); setFabState(true); }
-  function closeChat() { panel.classList.remove('open'); setFabState(false); }
-  function toggleChat() { panel.classList.contains('open') ? closeChat() : openChat(); }
+  function openChat() {
+    console.log('[Ask VSv] Opening chat');
+    panel.classList.add('open');
+    setFabState(true);
+  }
+  function closeChat() {
+    panel.classList.remove('open');
+    setFabState(false);
+  }
+  function toggleChat() {
+    panel.classList.contains('open') ? closeChat() : openChat();
+  }
 
   fab.addEventListener('click', toggleChat);
-  closeBtn.addEventListener('click', closeChat);
+  if (closeBtn) closeBtn.addEventListener('click', closeChat);
   if (navBtn) navBtn.addEventListener('click', openChat);
 
   document.querySelectorAll('.chat-persona-btn').forEach(btn => {
@@ -2865,7 +2875,7 @@ async function handleSubmit(e) {
 
 <!-- ============ ASK VSv CHAT WIDGET ============ -->
 <button class="chat-fab" id="chatFab" aria-label="Ask VSv assistant">
-  <span class="chat-fab-icon" aria-hidden="true">&rdquo;</span>
+  <img src="assets/vsv-logo.jpg" alt="VSv" class="chat-fab-logo">
   <span class="chat-fab-text">
     <span class="chat-fab-eyebrow">Buy or sell?</span>
     <span class="chat-fab-cta">Ask VSv &rarr;</span>
