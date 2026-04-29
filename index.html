@@ -2843,7 +2843,8 @@ window.AskVSv = window.AskVSv || {
 window.AskVSv.greetings = {
   buy: "Welcome. We currently have **8 active sell-side opportunities** across CX, BPO, healthcare RCM, and AI-augmented services — codenames Demeter through Aurora. Tell me what sector or geography you’re focused on, or ask about any specific codename. I can share teaser-level detail; named entities are released only against an NDA.",
   sell: "Welcome. We currently have **5 active buyer mandates** — from Nasdaq-listed strategics to PE-backed CX leaders to AI-native acquirers. To help match you, tell me a bit about your business: sector, rough revenue, geography, and what kind of outcome you’re considering. Or ask me anything about VSv’s sell-side process.",
-  general: "Welcome to VSv. We’re a boutique M&A advisory firm in Makati, Philippines, focused on BPO, CX, and tech-enabled services. Ask me anything about the firm, our team, our process, or our current mandates."
+  general: "Welcome to VSv. We’re a boutique M&A advisory firm in Makati, Philippines, focused on BPO, CX, and tech-enabled services. Ask me anything about the firm, our team, our process, or our current mandates.",
+  research: "Welcome. We track the **Philippine IT-BPM ecosystem** closely — sizing, growth rates, sector mix, talent dynamics, regulatory updates, and M&A activity. Ask me anything industry-level. I’ll pull current data from authoritative sources (IBPAP, CCAP, DTI, BOI, NEDA, sector reports) and cite where the figures come from. Where would you like to start?"
 };
 
 (function() {
@@ -3039,6 +3040,10 @@ window.AskVSv.greetings = {
         </button>
         <button class="chat-persona-btn" data-persona="general" onclick="window.AskVSv.selectPersona('general')">
           <span>Just exploring &mdash; tell me about VSv</span>
+          <span class="arrow">&rarr;</span>
+        </button>
+        <button class="chat-persona-btn" data-persona="research" onclick="window.AskVSv.selectPersona('research')">
+          <span>I&rsquo;m <strong style="color: var(--gold);">researching</strong> the BPO/CX market</span>
           <span class="arrow">&rarr;</span>
         </button>
       </div>

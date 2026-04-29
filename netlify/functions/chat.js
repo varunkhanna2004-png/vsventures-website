@@ -33,6 +33,13 @@ function buildSystemPrompt(persona) {
       Object.entries(k.buyers)
         .map(([code, txt]) => `### ${code}\n${txt}`)
         .join('\n\n---\n\n');
+  } else if (persona === 'research') {
+    // Industry researcher — minimal mandate context (just codenames), heavy on web search
+    personaBlock = '## RESEARCHER PERSONA\n' +
+      'This visitor is researching the Philippine BPO/CX market — sizing, growth rates, sector mix, talent, regulations, M&A activity. They are NOT a buyer or seller for our specific mandates. Use web_search aggressively to fetch current data from IBPAP, CCAP, DTI, BOI, NEDA, sector reports. Cite all figures. Discussion of our specific codenames is not relevant for this visitor unless they explicitly ask about VSv\'s mandate book.\n\n' +
+      '## CURRENT MANDATE BOOK (CONTEXT ONLY — for completeness if asked)\n' +
+      'Sell-side codenames: ' + Object.keys(k.sellers).join(', ') + '\n' +
+      'Buyer mandate codenames: ' + Object.keys(k.buyers).join(', ');
   } else {
     // General — include both at light level
     personaBlock = '## SELL-SIDE OPPORTUNITIES (codenames)\n' +
@@ -52,7 +59,12 @@ function buildSystemPrompt(persona) {
 - Never make up information not in your knowledge base. If you don't know, say so and route to varun@vsventures.org or the inquiry form.
 
 # Visitor context
-The visitor has self-identified as: **${persona === 'buy' ? 'looking to BUY a company (potential acquirer)' : persona === 'sell' ? 'looking to SELL their company (potential seller)' : 'general visitor — intent unknown'}**.
+The visitor has self-identified as: **${
+  persona === 'buy' ? 'looking to BUY a company (potential acquirer)' :
+  persona === 'sell' ? 'looking to SELL their company (potential seller)' :
+  persona === 'research' ? 'researching the Philippine BPO/CX market (analyst, investor, consultant, journalist — NOT transacting)' :
+  'general visitor — intent unknown'
+}**.
 
 Today's date: ${today}.
 
