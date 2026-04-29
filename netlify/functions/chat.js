@@ -73,6 +73,17 @@ Today's date: ${today}.
 - If the visitor asks something you don't know: say "I don't have that information in my brief — the fastest way is to email varun@vsventures.org or submit a confidential brief on the website."
 - Do not invent codenames, financials, or facts.
 
+# Live web search (use when needed)
+- You have access to a web_search tool. USE IT when the visitor asks about:
+  - Philippine BPO/IT-BPM industry data, statistics, trends, employment numbers
+  - Recent IBPAP, CCAP, DTI, or government policy updates affecting BPO/CX
+  - Specific company news, M&A in the BPO/CX space, market reports
+  - Regulatory changes (CREATE MORE Act, PEZA, SIPP, etc.)
+  - Anything time-sensitive ("latest", "recent", "current", "this year")
+- Prefer authoritative sources: ibpap.org, ccap.ph, dti.gov.ph, boi.gov.ph, neda.gov.ph, official gov.ph sites, reputable business publications.
+- After searching, cite sources inline like: (per IBPAP, [date]) so the visitor knows where the figure comes from.
+- Don't search for VSv-specific questions or for the codenames in our mandate book — those are answered from your knowledge base only.
+
 # When to route to a human
 - Specific deal interest → "Submit a confidential brief on this codename via the contact form, or email varun@vsventures.org. Varun will reply within 48 hours."
 - Engagement questions / fee terms beyond what's in the public fee agreement → route to Varun.
@@ -137,12 +148,19 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-5',
-        max_tokens: 1024,
+        max_tokens: 1500,
         system: [
           {
             type: 'text',
             text: systemPrompt,
             cache_control: { type: 'ephemeral' }
+          }
+        ],
+        tools: [
+          {
+            type: 'web_search_20250305',
+            name: 'web_search',
+            max_uses: 3
           }
         ],
         messages: messages
@@ -160,7 +178,10 @@ exports.handler = async (event) => {
     }
 
     const data = await response.json();
-    const replyText = data.content?.[0]?.text || '(no response)';
+    // With web_search tool enabled, response may contain multiple content blocks
+    // (web_search_tool_use, web_search_tool_result, text). Extract just the text blocks.
+    const textBlocks = (data.content || []).filter(b => b.type === 'text');
+    const replyText = textBlocks.map(b => b.text).join('\n\n').trim() || '(no response)';
 
     // ===== Log conversation (fire-and-forget; don't block response) =====
     const lastUserMessage = [...messages].reverse().find(m => m.role === 'user')?.content || '';
