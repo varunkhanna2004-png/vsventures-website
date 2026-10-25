@@ -19,6 +19,14 @@ function buildSystemPrompt(persona) {
     .map(([name, txt]) => `### ${name}\n${txt}`)
     .join('\n\n---\n\n');
 
+  // Investor raises + archive (always available)
+  const raises = k.investor_raises || {};
+  const archived = k.archived || {};
+  const archiveBlock = '## ARCHIVED MANDATES (NOT available — explain the reason briefly if asked, never offer them)\n' +
+    Object.entries(archived).map(([code, why]) => `- ${code}: ${why}`).join('\n');
+  const raisesFull = '## LIVE INVESTOR OPPORTUNITIES / CAPITAL RAISES (codenames only — never reveal real entity names)\n\n' +
+    Object.entries(raises).map(([code, txt]) => `### ${code}\n${txt}`).join('\n\n---\n\n');
+
   // Persona-specific block
   let personaBlock = '';
   if (persona === 'buy') {
@@ -26,7 +34,7 @@ function buildSystemPrompt(persona) {
     personaBlock = '## ACTIVE SELL-SIDE OPPORTUNITIES (codenames only — never reveal real entity names)\n\n' +
       Object.entries(k.sellers)
         .map(([code, txt]) => `### ${code}\n${txt}`)
-        .join('\n\n---\n\n');
+        .join('\n\n---\n\n') + '\n\n' + raisesFull;
   } else if (persona === 'sell') {
     // Visitor is a SELLER — give them context on buyer mandates
     personaBlock = '## ACTIVE BUYER MANDATES (codenames only — never reveal real entity names)\n\n' +
@@ -45,8 +53,10 @@ function buildSystemPrompt(persona) {
     personaBlock = '## SELL-SIDE OPPORTUNITIES (codenames)\n' +
       Object.keys(k.sellers).join(', ') +
       '\n\n## BUYER MANDATES (codenames)\n' +
-      Object.keys(k.buyers).join(', ');
+      Object.keys(k.buyers).join(', ') +
+      '\n\n' + raisesFull;
   }
+  personaBlock += '\n\n' + archiveBlock;
 
   const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -69,7 +79,7 @@ The visitor has self-identified as: **${
 Today's date: ${today}.
 
 # Confidentiality rules — CRITICAL
-- All seller and buyer entities are referenced by codename only (Demeter, Apollo, Zeus, Hermes, Poseidon, Ares, Artemis, Aurora for sellers; Orion, Lyra, Pegasus, Cygnus, Andromeda for buyers). NEVER reveal real company names, even if you have them.
+- All entities are referenced by codename only (sellers: ${Object.keys(k.sellers).join(', ')}; buyers: ${Object.keys(k.buyers).join(', ')}; capital raises: ${Object.keys(k.investor_raises || {}).join(', ')}). Archived mandates (${Object.keys(k.archived || {}).join('; ')}) are no longer available. Note: the current Hermes is a NEW Cebu healthcare voice BPO mandate, unrelated to the archived prior Hermes mandate. NEVER reveal real company names, even if you have them.
 - You may share TEASER-level information (sector, geography region, headcount range, revenue range, EBITDA margin range, strategic rationale).
 - You must NOT share: precise financial figures beyond what's in standard teasers, specific city addresses, named clients, named management, NDA-protected commercial terms, fee/economic terms unless directly asked from the fee agreement context.
 - For ANY specific deal interest or detailed financials, route the visitor to: (1) sign an NDA via the contact form on vsventures.org#contact, or (2) email varun@vsventures.org directly.

@@ -869,6 +869,54 @@ section {
 .status-pill.closed { color: var(--gold); border-color: var(--gold); }
 .status-pill.dd { color: #E5BB87; }
 .status-pill.discussion { color: var(--text-muted); }
+/* ============ LIVE STATUS + ARCHIVE + INVESTOR RAISES ============ */
+.status-pill.live { color: #9FD7A8; border-color: rgba(159,215,168,0.55); }
+.status-pill.live::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%; background:#9FD7A8; margin-right:0.5rem; vertical-align:middle; animation: livePulse 1.8s ease-in-out infinite; }
+@keyframes livePulse { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
+.deal-tag { display:inline-block; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); border:1px solid var(--border); padding:0.15rem 0.5rem; border-radius:3px; margin-left:0.5rem; vertical-align:middle; }
+.archive-status { display:inline-block; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.28rem 0.7rem; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-muted); white-space:nowrap; }
+.archive-status.sold { color:var(--gold); border-color:var(--gold); }
+.archive-status.deferred { color:var(--gold-bright); }
+.archive-status.raise { color:#9FD7A8; border-color:rgba(159,215,168,0.45); }
+.archive-reason { font-size:0.9rem; line-height:1.5; }
+.archive-impact { color:var(--text-muted); font-size:0.78rem; margin-top:0.3rem; }
+#pane-archive .mandate-codename { opacity:0.75; }
+
+.investors-section { background: var(--bg); }
+.raise-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-bottom:3rem; padding:2rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.raise-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; }
+.raise-card { position:relative; background:var(--bg-card); border:1px solid var(--border); padding:2.2rem 2rem 2rem; display:flex; flex-direction:column; transition:border-color .3s, transform .3s; }
+.raise-card:hover { border-color:var(--border-strong); transform:translateY(-3px); }
+.raise-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),transparent); }
+.raise-top { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:0.9rem; }
+.raise-code { font-family:var(--display); font-size:1.9rem; color:var(--text); line-height:1; }
+.raise-code .new-badge { position:relative; top:-0.6rem; }
+.raise-sector { font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:0.5rem; }
+.raise-ask { text-align:right; flex-shrink:0; }
+.raise-ask-num { font-family:var(--display); font-size:1.7rem; color:var(--gold-bright); line-height:1; }
+.raise-ask-label { font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-muted); margin-top:0.35rem; }
+.raise-pitch { font-family:var(--display); font-style:italic; font-size:1.15rem; line-height:1.45; color:var(--text); margin:0.4rem 0 1.4rem; }
+.raise-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem; padding:1rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:1.2rem; }
+.raise-metric-num { font-family:var(--display); font-size:1.35rem; color:var(--gold); line-height:1.1; }
+.raise-metric-label { font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-top:0.3rem; line-height:1.35; }
+.raise-points { list-style:none; padding:0; margin:0 0 1.6rem; flex:1; }
+.raise-points li { position:relative; padding-left:1.1rem; font-size:0.88rem; line-height:1.55; color:var(--text); margin-bottom:0.55rem; }
+.raise-points li::before { content:'◆'; position:absolute; left:0; top:0.1rem; font-size:0.55rem; color:var(--gold); }
+.raise-foot { display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+.raise-geo { font-size:0.75rem; color:var(--text-muted); }
+@media (max-width: 700px) {
+  .mandates-tabs { flex-wrap: wrap; }
+  .mandates-tab { padding: 0.85rem 0.9rem; font-size: 0.72rem; }
+  .mandates-tab .tab-count { display: block; margin: 0.25rem 0 0; }
+}
+@media (max-width: 900px) {
+  .raise-grid { grid-template-columns:1fr; }
+  .raise-stats { grid-template-columns:1fr; }
+  .raise-top { flex-direction:column; }
+  .raise-ask { text-align:left; }
+  .raise-card { padding:1.8rem 1.4rem; }
+}
+
 .deal-narrative {
   font-family: var(--display);
   font-size: 1.1rem;
@@ -1886,6 +1934,7 @@ section {
       <li><a href="#services">Services</a></li>
       <li><a href="#deals">Track Record</a></li>
       <li><a href="#process">Process</a></li>
+      <li><a href="#investors">Investors</a></li>
       <li><a href="#mandates">Mandates</a></li>
       <li><a href="#leadership">Leadership</a></li>
       <li><button class="nav-chat-btn" id="navChatBtn" onclick="document.getElementById('chatPanel').classList.add('open');document.getElementById('chatFab').classList.add('active');">Ask VS<span class="lc">v</span></button>
@@ -1900,6 +1949,7 @@ section {
     <a href="#services">Services</a>
     <a href="#deals">Track Record</a>
     <a href="#process">Process</a>
+    <a href="#investors">Investors</a>
     <a href="#mandates">Mandates</a>
     <a href="#leadership">Leadership</a>
     <a href="#contact">Talk to Us</a>
@@ -1930,9 +1980,9 @@ section {
 
       <div class="pipeline-headline">
         <a class="pipeline-stat" href="#mandates">
-          <div class="pipeline-stat-num">14</div>
-          <div class="pipeline-stat-label">Active Mandates</div>
-          <div class="pipeline-stat-sub">9 sell-side · 5 buy-side</div>
+          <div class="pipeline-stat-num">15</div>
+          <div class="pipeline-stat-label">Live Mandates</div>
+          <div class="pipeline-stat-sub">6 sell · 5 buy · 4 capital raises</div>
           <span class="pipeline-stat-arrow">→</span>
         </a>
         <a class="pipeline-stat" href="#deals">
@@ -1946,12 +1996,17 @@ section {
       <div class="pipeline-rows">
         <a class="pipeline-row" href="#mandates" data-mandate-tab="sell">
           <span class="pipeline-row-side">◆ Sell-Side</span>
-          <span class="pipeline-row-detail"><strong>9 mandates</strong> · ~$346M aggregate revenue</span>
+          <span class="pipeline-row-detail"><strong>6 mandates</strong> · ~$289M aggregate revenue</span>
           <span class="pipeline-row-arrow">→</span>
         </a>
         <a class="pipeline-row" href="#mandates" data-mandate-tab="buy">
           <span class="pipeline-row-side">◆ Buy-Side</span>
           <span class="pipeline-row-detail"><strong>5 mandates</strong> · $110–490M deal envelope</span>
+          <span class="pipeline-row-arrow">→</span>
+        </a>
+        <a class="pipeline-row" href="#investors">
+          <span class="pipeline-row-side">◆ Capital Raise</span>
+          <span class="pipeline-row-detail"><strong>4 raises</strong> · ~$24M combined ask</span>
           <span class="pipeline-row-arrow">→</span>
         </a>
       </div>
@@ -2131,8 +2186,8 @@ section {
         <div class="deal-stat-label">Closed Deal Value</div>
       </div>
       <div class="deal-stat">
-        <div class="deal-stat-num">4</div>
-        <div class="deal-stat-label">Active Mandates</div>
+        <div class="deal-stat-num">6</div>
+        <div class="deal-stat-label">Live Opportunities</div>
       </div>
       <div class="deal-stat">
         <div class="deal-stat-num">5</div>
@@ -2151,6 +2206,54 @@ section {
       </thead>
       <tbody>
         <tr>
+          <td><span class="status-pill live">Live</span></td>
+          <td>
+            <div class="deal-narrative">AI-native, sovereign contact-centre platform — AI workers and human agents on one stack, live and self-funded — raising its Series A</div>
+            <div class="deal-meta">Project Janus<span class="deal-tag">Capital raise</span> · AI / CX technology · India-built, global GTM</div>
+          </td>
+          <td><div class="deal-scale">USD 20M Series A</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill live">Live</span></td>
+          <td>
+            <div class="deal-narrative">India-native agentic AI for BFSI collections and servicing — 7 lenders live, ~1M calls a month, 9.7x MRR growth in six months</div>
+            <div class="deal-meta">Project Polaris<span class="deal-tag">Capital raise</span> · AI / BFSI · India</div>
+          </td>
+          <td><div class="deal-scale">~USD 0.35M (₹3 Cr)</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill live">Live</span></td>
+          <td>
+            <div class="deal-narrative">AI-driven smart DOOH platform turning every screen into a demographics-aware revenue engine — paying client live, $750K distribution deal signed</div>
+            <div class="deal-meta">Project Lumen<span class="deal-tag">Capital raise</span> · Seed round · AdTech · Philippines + Uzbekistan</div>
+          </td>
+          <td><div class="deal-scale">USD 1.5M Seed</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill live">Live</span></td>
+          <td>
+            <div class="deal-narrative">Omnichannel Indian heritage-grocery brand — 55% gross margin, stores profitable 34 of 34 months, D2C up 5.2x in six months</div>
+            <div class="deal-meta">Project Helios<span class="deal-tag">Capital raise</span> · Growth round · Consumer / D2C · India</div>
+          </td>
+          <td><div class="deal-scale">USD 2.12M (₹18 Cr)</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill live">Live</span></td>
+          <td>
+            <div class="deal-narrative">24/7 healthcare voice BPO handling US ambulance call-taking and dispatch — sticky US book, ~60% gross margin, near-doubling pipeline for Q1 2027</div>
+            <div class="deal-meta">Project Hermes<span class="deal-tag">Sell-side</span> · Healthcare BPO · Philippines (Cebu)</div>
+          </td>
+          <td><div class="deal-scale">USD 0.72M revenue</div></td>
+        </tr>
+        <tr>
+          <td><span class="status-pill live">Live</span></td>
+          <td>
+            <div class="deal-narrative">Scaled Philippine flexible-workspace and EOR platform — ~10,000 seats, ~150 clients, ~45% adjusted EBITDA margin</div>
+            <div class="deal-meta">Project Atlas<span class="deal-tag">Sell-side</span> · Workspace + EOR · Philippines</div>
+          </td>
+          <td><div class="deal-scale">USD 18.9M revenue</div></td>
+        </tr>
+        <tr>
           <td><span class="status-pill closed">● Closed</span></td>
           <td>
             <div class="deal-narrative">Strategic CX/BPO platform acquired a Philippines-based BPO delivery business</div>
@@ -2165,22 +2268,6 @@ section {
             <div class="deal-meta">Sell-side advisory · APAC</div>
           </td>
           <td><div class="deal-scale">AUD 5.8M</div></td>
-        </tr>
-        <tr>
-          <td><span class="status-pill dd">◐ In DD</span></td>
-          <td>
-            <div class="deal-narrative">AI-native CX platform conducting diligence on a BPO target</div>
-            <div class="deal-meta">Buy-side advisory · Tech-enabled services</div>
-          </td>
-          <td><div class="deal-scale">USD 32M revenue</div></td>
-        </tr>
-        <tr>
-          <td><span class="status-pill discussion">○ In Discussion</span></td>
-          <td>
-            <div class="deal-narrative">Global CX provider exploring acquisition / partnership with an India-based RCM company</div>
-            <div class="deal-meta">Buy-side advisory · Healthcare RCM</div>
-          </td>
-          <td><div class="deal-scale">Confidential</div></td>
         </tr>
       </tbody>
     </table>
@@ -2244,6 +2331,119 @@ section {
 </section>
 
 
+<!-- ============ INVESTOR OPPORTUNITIES ============ -->
+<section id="investors" class="investors-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <span class="eyebrow">Investor Opportunities · Capital Raise</span>
+        <h2>Founders raising now. <em>Conviction you can underwrite.</em></h2>
+      </div>
+      <p class="section-lead">
+        Live capital raises from companies with products in market, real revenue and plans you can check. VSv runs each raise end to end: teaser, data room, founder access and terms. Company identities, full models and valuation are released only against a signed NDA.
+      </p>
+    </div>
+
+    <div class="raise-stats reveal">
+      <div>
+        <div class="mandate-stat-num">4</div>
+        <div class="mandate-stat-label">Live capital raises</div>
+      </div>
+      <div>
+        <div class="mandate-stat-num">~$24M</div>
+        <div class="mandate-stat-label">Combined ask (seed to Series A)</div>
+      </div>
+      <div>
+        <div class="mandate-stat-num">AI · AdTech · Consumer</div>
+        <div class="mandate-stat-label">Sectors</div>
+      </div>
+    </div>
+
+    <div class="raise-grid">
+      <article class="raise-card reveal">
+        <div class="raise-top">
+          <div>
+            <div class="raise-code">Janus<span class="new-badge">NEW</span></div>
+            <div class="raise-sector">AI-native contact-centre platform</div>
+          </div>
+          <div class="raise-ask">
+            <div class="raise-ask-num">$20M</div>
+            <div class="raise-ask-label">Series A · priced round</div>
+          </div>
+        </div>
+        <p class="raise-pitch">The AI workforce inside a full contact-centre stack — sovereign by design, cloud by choice.</p>
+        <div class="raise-metrics"><div><div class="raise-metric-num">Live</div><div class="raise-metric-label">Full platform in production</div></div><div><div class="raise-metric-num">$24.8M</div><div class="raise-metric-label">ARR target by month 36</div></div><div><div class="raise-metric-num">3</div><div class="raise-metric-label">Provisional patents filed</div></div></div>
+        <ul class="raise-points"><li>AI workers and human agents on one stack — incumbents sell the AI separately, AI-native rivals have no contact centre underneath.</li><li>Runs on-premise or air-gapped with its own speech and language models: zero API token cost, and built for BFSI and government buyers that cloud-only rivals can't serve.</li><li>Customers fund the sovereign hardware, so equity buys selling, not building. Plan: 151 customers and a cash-positive year 3.</li></ul>
+        <div class="raise-foot">
+          <span class="raise-geo">India-built · Global GTM via SIs, telcos and BPOs</span>
+          <button class="mandate-cta" data-codename="Janus" data-side="invest">Request Investor Brief →</button>
+        </div>
+      </article>
+      <article class="raise-card reveal">
+        <div class="raise-top">
+          <div>
+            <div class="raise-code">Polaris<span class="new-badge">NEW</span></div>
+            <div class="raise-sector">Agentic AI for BFSI operations</div>
+          </div>
+          <div class="raise-ask">
+            <div class="raise-ask-num">~$0.35M</div>
+            <div class="raise-ask-label">₹3 Cr · early-stage growth</div>
+          </div>
+        </div>
+        <p class="raise-pitch">The India-native agentic AI operating system for BFSI customer operations.</p>
+        <div class="raise-metrics"><div><div class="raise-metric-num">9.7x</div><div class="raise-metric-label">MRR growth in 6 months</div></div><div><div class="raise-metric-num">7</div><div class="raise-metric-label">Lenders live in production</div></div><div><div class="raise-metric-num">69%</div><div class="raise-metric-label">Paid rate vs 54% human</div></div></div>
+        <ul class="raise-points"><li>Head-to-head in an NBFC trial: beat both the human team and two rival voice-AI vendors, at ~80% lower cost per account.</li><li>Its own voice LLM handles 12+ Indian languages and code-mixed speech on 60% less compute, which makes voice AI pay at Indian per-call economics.</li><li>Goes after a $12.4B BFSI ops spend where 68% of firms want AI and 21% have deployed it. Plan: $12.5M revenue at 40% EBITDA by FY31.</li></ul>
+        <div class="raise-foot">
+          <span class="raise-geo">Bengaluru, India · NVIDIA Inception · Google for Startups</span>
+          <button class="mandate-cta" data-codename="Polaris" data-side="invest">Request Investor Brief →</button>
+        </div>
+      </article>
+      <article class="raise-card reveal">
+        <div class="raise-top">
+          <div>
+            <div class="raise-code">Lumen<span class="new-badge">NEW</span></div>
+            <div class="raise-sector">AI smart DOOH advertising</div>
+          </div>
+          <div class="raise-ask">
+            <div class="raise-ask-num">$1.5M</div>
+            <div class="raise-ask-label">Seed · ~$5M post-money</div>
+          </div>
+        </div>
+        <p class="raise-pitch">Turning every blind screen into an intelligent, revenue-generating media engine.</p>
+        <div class="raise-metrics"><div><div class="raise-metric-num">2–5x</div><div class="raise-metric-label">Revenue lift vs static DOOH</div></div><div><div class="raise-metric-num">$750K</div><div class="raise-metric-label">5-yr exclusive deal signed</div></div><div><div class="raise-metric-num">20M+</div><div class="raise-metric-label">Blind screens worldwide</div></div></div>
+        <ul class="raise-points"><li>Computer vision reads audience and attention in real time, and generative AI serves the matched ad instantly — no images or personal data stored.</li><li>Paying client live across 4 retail stores, a Philippines distributor active, and a pipeline with global sportswear, luxury and mall operators.</li><li>Three revenue lines (SaaS, revenue share and licensing) plus an equity stake in a sister product. Target: $5M+ ARR by year 2.</li></ul>
+        <div class="raise-foot">
+          <span class="raise-geo">Philippines + Uzbekistan · 20–35% equity on offer</span>
+          <button class="mandate-cta" data-codename="Lumen" data-side="invest">Request Investor Brief →</button>
+        </div>
+      </article>
+      <article class="raise-card reveal">
+        <div class="raise-top">
+          <div>
+            <div class="raise-code">Helios<span class="new-badge">NEW</span></div>
+            <div class="raise-sector">Omnichannel heritage-grocery brand</div>
+          </div>
+          <div class="raise-ask">
+            <div class="raise-ask-num">$2.12M</div>
+            <div class="raise-ask-label">₹18 Cr · growth round</div>
+          </div>
+        </div>
+        <p class="raise-pitch">The 'Trader Joe's of India' — curated, traceable, GI-tagged regional foods.</p>
+        <div class="raise-metrics"><div><div class="raise-metric-num">$1.84M</div><div class="raise-metric-label">ARR · 60% YoY growth</div></div><div><div class="raise-metric-num">55%</div><div class="raise-metric-label">Gross margin vs 45% peers</div></div><div><div class="raise-metric-num">34/34</div><div class="raise-metric-label">Profitable store months</div></div></div>
+        <ul class="raise-points"><li>Built to $1.84M ARR on just $447K raised, while peers raised $20M+ to reach a similar scale.</li><li>8 company-owned stores, D2C up 5.2x in six months, live on Zepto and Instamart, backed by its own 20K-units-a-day factory.</li><li>Franchise rollout to 156 stores (franchise stores pay back in 14–18 months). Plan: $39M revenue by FY30.</li></ul>
+        <div class="raise-foot">
+          <span class="raise-geo">Dehradun, India · Shark Tank India alum founder</span>
+          <button class="mandate-cta" data-codename="Helios" data-side="invest">Request Investor Brief →</button>
+        </div>
+      </article>
+    </div>
+
+    <p class="mandates-disclaimer reveal">
+      Not an offer of securities. Figures are company-provided, indicative and not independently verified by VSv. INR converted at ₹85 per US$1. As of <span data-today></span>.
+    </p>
+  </div>
+</section>
+
 <!-- ============ ACTIVE MANDATES ============ -->
 <section id="mandates" class="mandates-section">
   <div class="container">
@@ -2258,23 +2458,24 @@ section {
     </div>
 
     <div class="mandates-tabs reveal" role="tablist">
-      <button class="mandates-tab active" role="tab" data-tab="sell">Sell-Side <span class="tab-count">9 active</span></button>
+      <button class="mandates-tab active" role="tab" data-tab="sell">Sell-Side <span class="tab-count">6 active</span></button>
       <button class="mandates-tab" role="tab" data-tab="buy">Buyer Mandates <span class="tab-count">5 active</span></button>
+      <button class="mandates-tab" role="tab" data-tab="archive">Archive <span class="tab-count">5 closed</span></button>
     </div>
 
     <!-- ===== SELL-SIDE PANE ===== -->
     <div class="mandates-pane active" id="pane-sell">
       <div class="mandates-stats reveal">
         <div>
-          <div class="mandate-stat-num">9</div>
+          <div class="mandate-stat-num">6</div>
           <div class="mandate-stat-label">Sell-side opportunities</div>
         </div>
         <div>
-          <div class="mandate-stat-num">~$346M</div>
+          <div class="mandate-stat-num">~$289M</div>
           <div class="mandate-stat-label">Aggregate revenue</div>
         </div>
         <div>
-          <div class="mandate-stat-num">~32,650</div>
+          <div class="mandate-stat-num">~28,850</div>
           <div class="mandate-stat-label">Aggregate FTE</div>
         </div>
       </div>
@@ -2290,6 +2491,20 @@ section {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td><div class="mandate-codename">Atlas<span class="new-badge">NEW</span></div></td>
+            <td>Flexible Workspace + EOR Platform<div class="mandate-meta">~10,000 seats · 6 buildings · ~840 EOR staff; seats-to-EOR cross-sell runway</div></td>
+            <td>Philippines<div class="mandate-meta">Cebu 65% · Metro Manila + Clark 35%</div></td>
+            <td><div class="mandate-band">$10–25M</div><div class="mandate-band-sub">~45% adj. EBITDA; ~150 sticky clients</div></td>
+            <td><button class="mandate-cta" data-codename="Atlas" data-side="sell">Request Brief →</button></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Hermes<span class="new-badge">NEW</span></div></td>
+            <td>Healthcare Voice BPO — 24/7 EMS dispatch<div class="mandate-meta">US ambulance call-taking; 10 US contracts; 4-yr anchor client</div></td>
+            <td>Philippines (Cebu)<div class="mandate-meta">100-seat site; ~35% capacity headroom</div></td>
+            <td><div class="mandate-band">&lt;$5M</div><div class="mandate-band-sub">~60% gross margin; +50–60 FTE pipeline Q1'27</div></td>
+            <td><button class="mandate-cta" data-codename="Hermes" data-side="sell">Request Brief →</button></td>
+          </tr>
           <tr>
             <td><div class="mandate-codename">Demeter</div></td>
             <td>Multilingual CX &amp; Operations Support<div class="mandate-meta">Voice + digital, B2B sales, trust &amp; safety</div></td>
@@ -2312,46 +2527,11 @@ section {
             <td><button class="mandate-cta" data-codename="Zeus" data-side="sell">Request Brief →</button></td>
           </tr>
           <tr>
-            <td><div class="mandate-codename">Hermes</div></td>
-            <td>CX + FinOps + RevOps<div class="mandate-meta">Right-shoring delivery model</div></td>
-            <td>North America + Asia<div class="mandate-meta">5 hubs across NA/APAC</div></td>
-            <td><div class="mandate-band">$25–50M</div><div class="mandate-band-sub">Mid-teens EBITDA margin</div></td>
-            <td><button class="mandate-cta" data-codename="Hermes" data-side="sell">Request Brief →</button></td>
-          </tr>
-          <tr>
-            <td><div class="mandate-codename">Poseidon</div></td>
-            <td>Offshore talent &amp; staff augmentation<div class="mandate-meta">IT, finance, creative, healthcare</div></td>
-            <td>Multi-country offshore<div class="mandate-meta">PH/IN/CO/AR/MY/VN</div></td>
-            <td><div class="mandate-band">$25–50M</div><div class="mandate-band-sub">~20% EBITDA margin</div></td>
-            <td><button class="mandate-cta" data-codename="Poseidon" data-side="sell">Request Brief →</button></td>
-          </tr>
-          <tr>
             <td><div class="mandate-codename">Ares</div></td>
             <td>Omnichannel CX &amp; back office<div class="mandate-meta">19+ years; 150+ active clients</div></td>
             <td>Philippines<div class="mandate-meta">Mindanao multi-site</div></td>
             <td><div class="mandate-band">$50–75M</div><div class="mandate-band-sub">~20% EBITDA margin</div></td>
             <td><button class="mandate-cta" data-codename="Ares" data-side="sell">Request Brief →</button></td>
-          </tr>
-          <tr>
-            <td><div class="mandate-codename">Artemis</div></td>
-            <td>Healthcare RCM / Risk Adjustment<div class="mandate-meta">HCC coding; HEDIS/Stars; AI-enabled</div></td>
-            <td>USA + India<div class="mandate-meta">Multi-site delivery</div></td>
-            <td><div class="mandate-band">$5–10M</div><div class="mandate-band-sub">Investment phase; 20%+ target</div></td>
-            <td><button class="mandate-cta" data-codename="Artemis" data-side="sell">Request Brief →</button></td>
-          </tr>
-          <tr>
-            <td><div class="mandate-codename">Aurora</div></td>
-            <td>Sales + CX + Back Office + FinOps<div class="mandate-meta">Tier-1 telecom partner; 16 marquee clients</div></td>
-            <td>India (Delhi NCR)<div class="mandate-meta">Noida flagship + Gurugram</div></td>
-            <td><div class="mandate-band">$5–10M</div><div class="mandate-band-sub">FY27F: $11M, ~11% EBITDA</div></td>
-            <td><button class="mandate-cta" data-codename="Aurora" data-side="sell">Request Brief →</button></td>
-          </tr>
-          <tr>
-            <td><div class="mandate-codename">Zodiac<span class="new-badge">NEW</span></div></td>
-            <td>F&amp;A Outsourcing — niche specialty finance<div class="mandate-meta">Asset-based lending, factoring, US tax prep; 19-yr history</div></td>
-            <td>USA + Philippines<div class="mandate-meta">Dual-shore; CA leadership + Manila delivery</div></td>
-            <td><div class="mandate-band">&lt;$5M</div><div class="mandate-band-sub">~36% EBITDA margin; founder retiring</div></td>
-            <td><button class="mandate-cta" data-codename="Zodiac" data-side="sell">Request Brief →</button></td>
           </tr>
         </tbody>
       </table>
@@ -2419,6 +2599,68 @@ section {
             <td>Healthcare / Insurance<div class="mandate-meta">Payer, provider, PBM, life &amp; annuities</div></td>
             <td><div class="mandate-band">$50–250M</div><div class="mandate-band-sub">Global geography</div></td>
             <td><button class="mandate-cta" data-codename="Andromeda" data-side="buy">Request Brief →</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ===== ARCHIVE PANE ===== -->
+    <div class="mandates-pane" id="pane-archive">
+      <div class="mandates-stats reveal">
+        <div>
+          <div class="mandate-stat-num">5</div>
+          <div class="mandate-stat-label">Archived mandates</div>
+        </div>
+        <div>
+          <div class="mandate-stat-num">1 · 1 · 3</div>
+          <div class="mandate-stat-label">Sold · deferred · withdrawn or pivoted</div>
+        </div>
+        <div>
+          <div class="mandate-stat-num">Oct 2026</div>
+          <div class="mandate-stat-label">Last reviewed</div>
+        </div>
+      </div>
+
+      <table class="mandates-table reveal">
+        <thead>
+          <tr>
+            <th style="width: 16%;">Codename</th>
+            <th style="width: 28%;">Sector / Geography</th>
+            <th style="width: 16%;">Status</th>
+            <th style="width: 40%;">Reason &amp; Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mandate-codename">Hermes</div></td>
+            <td>Prior mandate · CX + FinOps + RevOps<div class="mandate-meta">North America + Asia</div></td>
+            <td><span class="archive-status deferred">Deferred</span></td>
+            <td><div class="archive-reason">Founder prioritising FY27 growth; M&amp;A options to be revisited toward 2028.</div><div class="archive-impact">Impact: Paused, not lost — re-engagement window 2028.</div></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Poseidon</div></td>
+            <td>Offshore talent &amp; staff augmentation<div class="mandate-meta">Multi-country offshore</div></td>
+            <td><span class="archive-status ">Withdrawn</span></td>
+            <td><div class="archive-reason">Shareholders have chosen not to sell.</div><div class="archive-impact">Impact: Off-market; no process running.</div></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Artemis</div></td>
+            <td>Healthcare RCM / Risk Adjustment<div class="mandate-meta">USA + India</div></td>
+            <td><span class="archive-status raise">Raising capital</span></td>
+            <td><div class="archive-reason">Company is raising a funding round instead of pursuing a sale.</div><div class="archive-impact">Impact: Control sale shelved; may return as a minority raise.</div></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Aurora</div></td>
+            <td>Sales + CX + Back Office + FinOps<div class="mandate-meta">India (Delhi NCR)</div></td>
+            <td><span class="archive-status ">Off the table</span></td>
+            <td><div class="archive-reason">Mandate withdrawn by the company.</div><div class="archive-impact">Impact: No longer available to buyers.</div></td>
+          </tr>
+          <tr>
+            <td><div class="mandate-codename">Zodiac</div></td>
+            <td>F&amp;A Outsourcing — specialty finance<div class="mandate-meta">USA + Philippines</div></td>
+            <td><span class="archive-status sold">Sold</span></td>
+            <td><div class="archive-reason">Business sold through a transaction not led by VSv Inc.</div><div class="archive-impact">Impact: Closed; no longer available.</div></td>
           </tr>
         </tbody>
       </table>
@@ -2776,10 +3018,12 @@ document.querySelectorAll('.mandate-cta').forEach(btn => {
       const typeSelect = form.querySelector('select[name="type"]');
       const messageArea = form.querySelector('textarea[name="message"]');
       if (typeSelect) {
-        typeSelect.value = side === 'sell' ? 'buy-side' : 'sell-side';
+        typeSelect.value = side === 'sell' ? 'buy-side' : (side === 'invest' ? 'capital' : 'sell-side');
       }
       if (messageArea) {
-        messageArea.value = `I would like a confidential briefing on the "${codename}" mandate.`;
+        messageArea.value = side === 'invest'
+          ? `I am interested in the "${codename}" capital raise and would like the investor brief (NDA acceptable).`
+          : `I would like a confidential briefing on the "${codename}" mandate.`;
         messageArea.focus();
       }
     }, 700);
